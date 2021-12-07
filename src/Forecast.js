@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Result from "./Result";
+
 
 const Forecast=()=>{
 
@@ -11,13 +11,13 @@ const Forecast=()=>{
     function onhandle(event)
     {
         
-        //setResponseObj({});
+        setResponseObj({});
         if(event.key==="Enter")
         {
             setState(event.target.value)}
         }
        
-        
+       
     React.useEffect(()=>{
         axios.get("https://community-open-weather-map.p.rapidapi.com/weather",{
             params:{

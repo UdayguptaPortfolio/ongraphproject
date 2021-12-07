@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
-import Forecast from "./Forecast";
+import Forecast from './Forecast';
+import Thirtyday from './Thirtyday';
+
 
 
 
@@ -12,6 +14,7 @@ function App() {
         </header>
         <main>
           <Forecast/>
+          <Thirtyday/>
           </main>
           
     </div>

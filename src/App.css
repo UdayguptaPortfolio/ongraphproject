@@ -19,6 +19,8 @@ main{
   flex-grow:1;
   text-align:center;
   padding: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 header{
