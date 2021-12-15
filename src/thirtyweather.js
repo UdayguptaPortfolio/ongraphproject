@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Base_URL = 'http://api.openweathermap.org/data/2.5/forecast?';
+const Base_URL = 'https://api.openweathermap.org/data/2.5/forecast?';
 const API_KEY = 'c66fda0dd71b4e16f3dc0ad5b571c449';
 
 const thirtyweather = async (cityname) => {
