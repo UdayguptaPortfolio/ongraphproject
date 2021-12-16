@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: grey;
 }
 
 
@@ -17,12 +18,19 @@
 
 
 
-main{
-  flex-grow:1;
+.main{
+ margin: auto;
   text-align:center;
-  padding: 25px;
+  padding: 20px 10px;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
+  width:250px;
+  background: skyblue;
+  box-shadow: #1A374D 0px 50px 100px -20px,
+  #1A374D 0px 30px 60px -30px,
+  #1A374D 0px -2px 6px 0px inset;
+   padding: 0.5rem;
 }
 
 header{
@@ -60,7 +68,7 @@ button {
   color: rgb(52, 16, 85);
   border-radius: 30px;
 }
-/* .weather-icon img {
+.weather-icon img {
   width: 100px;
   height: 100px;
   animation: iconanimation 3s infinite;
@@ -73,8 +81,25 @@ button {
   to {
     transform: scale(1,1);
   }
-} */
+}
 .table-container{
   margin-left: auto;
   margin-right: auto;
 }
+.main-thirty{
+  margin: 0;
+  text-align:center;
+  padding: 20px 10px;
+  display: inline-block;
+  /* flex-direction: column; */
+  border-radius: 1rem;
+  width:250px;
+  background: skyblue;
+  box-shadow: #1A374D 0px 50px 100px -20px,
+  #1A374D 0px 30px 60px -30px,
+  #1A374D 0px -2px 6px 0px inset;
+   padding: 0.5rem;
+    
+   
+}
+

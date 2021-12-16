@@ -102,10 +102,34 @@ useEffect(()=>{
   getfourtyeightData()
 },[]);
 
+
+// const items
+// const unixTimestamp = f.dt;
+// let hour = new Date(unixTimestamp * 1000).getHours();
+// let ampm = 'AM';
+// if (hour === 0) hour = 12; 
+// else if (hour > 12) {
+//   hour = hour - 12;
+//   ampm = 'PM';
+// }
+
   const weatherList = weatherthirtydata?.list?.map((el)=>(
     <div>
-        <table className='table-container'>
-           
+      <div className="main-thirty">
+            <div className="weather-icon">
+              <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
+            </div>
+            <h3>{el.weather[0].main}</h3>
+            <h2>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</h2>
+            
+            <div className='description'>
+            <h5>Pressure: {el.main.pressure}||Minimum:{parseFloat(el.main.temp_min - 273.15).toFixed(1)}&deg;C
+            || Maximum: {parseFloat(el.main.temp_max - 273.15).toFixed(1)}&deg;C 
+              || Humidity: {el.main.humidity}%</h5>
+
+            </div>
+            </div>
+        {/* <table className='table-container'>
         <tr>
                             <th>Temperature</th>
                             <th>Pressure</th>
@@ -125,90 +149,66 @@ useEffect(()=>{
                             <td>{parseFloat(el.main.temp_max-273.15).toFixed(1)}&deg;C</td>
                             </tr>
 
-        </table>
+        </table> */}
     </div>
 ))
 
 
 const weatherList_sixteen = weathersixteendata?.list?.map((el)=>(
   <div>
-      <table className='table-container'>
-         
-      <tr>
-                          <th>Temperature</th>
-                          <th>Pressure</th>
-                          <th>Condition</th>
-                          <th>Feels Like</th>
-                          <th>Minimum Temperature</th>
-                          <th>Maximum Temperature</th>
-                          </tr>
-                          <tr><td>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</td>
-                          <td>{el.main.pressure}</td>
-                          <td>{el.weather[0].main}</td>
-                          <div className="weather-icon">
-                          <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
-                          </div>
-                          
-                          <td>{parseFloat(el.main.temp_min-273.15).toFixed(1)}&deg;C</td>
-                          <td>{parseFloat(el.main.temp_max-273.15).toFixed(1)}&deg;C</td>
-                          </tr>
+      <div className="main-thirty">
+            <div className="weather-icon">
+              <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
+            </div>
+            <h3>{el.weather[0].main}</h3>
+            <h2>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</h2>
+            
+            <div className='description'>
+            <h5>Pressure: {el.main.pressure}||Minimum:{parseFloat(el.main.temp_min - 273.15).toFixed(1)}&deg;C
+            || Maximum: {parseFloat(el.main.temp_max - 273.15).toFixed(1)}&deg;C 
+              || Humidity: {el.main.humidity}%</h5>
 
-      </table>
+            </div>
+            </div>
   </div>
 ))
 
 const weatherList_seven = weathersevendata?.list?.map((el)=>(
   <div>
-      <table className='table-container'>
-         
-      <tr>
-                          <th>Temperature</th>
-                          <th>Pressure</th>
-                          <th>Condition</th>
-                          <th>Feels Like</th>
-                          <th>Minimum Temperature</th>
-                          <th>Maximum Temperature</th>
-                          </tr>
-                          <tr><td>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</td>
-                          <td>{el.main.pressure}</td>
-                          <td>{el.weather[0].main}</td>
-                          <div className="weather-icon">
-                          <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
-                          </div>
-                          
-                          <td>{parseFloat(el.main.temp_min-273.15).toFixed(1)}&deg;C</td>
-                          <td>{parseFloat(el.main.temp_max-273.15).toFixed(1)}&deg;C</td>
-                          </tr>
+       <div className="main-thirty">
+            <div className="weather-icon">
+              <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
+            </div>
+            <h3>{el.weather[0].main}</h3>
+            <h2>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</h2>
+            
+            <div className='description'>
+            <h5>Pressure: {el.main.pressure}||Minimum:{parseFloat(el.main.temp_min - 273.15).toFixed(1)}&deg;C
+            || Maximum: {parseFloat(el.main.temp_max - 273.15).toFixed(1)}&deg;C 
+              || Humidity: {el.main.humidity}%</h5>
 
-      </table>
+            </div>
+            </div>
   </div>
 ))
 
 
 const weatherList_fourtyeight = weatherfourtyeightdata?.list?.map((el)=>(
   <div>
-      <table className='table-container'>
-         
-      <tr>
-                          <th>Temperature</th>
-                          <th>Pressure</th>
-                          <th>Condition</th>
-                          <th>Feels Like</th>
-                          <th>Minimum Temperature</th>
-                          <th>Maximum Temperature</th>
-                          </tr>
-                          <tr><td>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</td>
-                          <td>{el.main.pressure}</td>
-                          <td>{el.weather[0].main}</td>
-                          <div className="weather-icon">
-                          <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
-                          </div>
-                          
-                          <td>{parseFloat(el.main.temp_min-273.15).toFixed(1)}&deg;C</td>
-                          <td>{parseFloat(el.main.temp_max-273.15).toFixed(1)}&deg;C</td>
-                          </tr>
+       <div className="main-thirty">
+            <div className="weather-icon">
+              <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
+            </div>
+            <h3>{el.weather[0].main}</h3>
+            <h2>{parseFloat(el.main.temp-273.15).toFixed(1)}&deg;C</h2>
+            
+            <div className='description'>
+            <h5>Pressure: {el.main.pressure}||Minimum:{parseFloat(el.main.temp_min - 273.15).toFixed(1)}&deg;C
+            || Maximum: {parseFloat(el.main.temp_max - 273.15).toFixed(1)}&deg;C 
+              || Humidity: {el.main.humidity}%</h5>
 
-      </table>
+            </div>
+            </div>
   </div>
 ))
 
@@ -220,13 +220,7 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.list?.map((el)=>(
         Weather-Finder App
         </header>
 
-        {/* <main>
-          <Forecast setState={setState}/>
-          <Thirtyday state={state}/>
-          <Sixteenday state={state}/>
-          <Fiveday state={state}/>
-          </main> */}
-          <br/><br/>
+          <br/>
           <div className='container'>
 <h2>Current Weather Condition</h2>
         <div className="search">
