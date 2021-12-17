@@ -1,9 +1,8 @@
 .App {
   text-align: center;
   background: grey;
+  width:100vw;
 }
-
-
 .App-header {
   background-color:rgb(52, 126, 151);
   height: 2vh;
@@ -15,16 +14,13 @@
   font-size: calc(10px + 2vmin);
   color:rgb(243, 243, 243);
 }
-
-
-
 .main{
- margin: auto;
+  margin: 0;
   text-align:center;
   padding: 20px 10px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
+  margin-top: 5px;
+  display: inline-block;
+  border-radius: 1rem;
   width:250px;
   background: skyblue;
   box-shadow: #1A374D 0px 50px 100px -20px,
@@ -32,27 +28,8 @@
   #1A374D 0px -2px 6px 0px inset;
    padding: 0.5rem;
 }
-.main-current{
-  margin-top: auto;
-  margin-left: 20px;
-  text-align:center;
-  padding: 20px 10px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  width:250px;
-  background: skyblue;
-  box-shadow: #1A374D 0px 50px 100px -20px,
-  #1A374D 0px 30px 60px -30px,
-  #1A374D 0px -2px 6px 0px inset;
-   padding: 0.5rem;
-}
-
 header{
   padding: 30px;
-}
-table, th, td {
-  border:1px solid black;
 }
 button {
   border: none;
@@ -67,37 +44,6 @@ button {
   font-weight: 400;
   border-radius: 30px;
   background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
-
-}
-.button-current{
-  padding:20px;
-  display: flex;
-  margin-left: 70px;
-  margin-top: 50px;
-}
-.button-thirty{
-  padding:20px;
-  display: flex;
-  margin-left: 400px;
-  margin-top: -62px; 
-}
-.button-sixteen{
-  padding:20px;
-  display: flex;
-  margin-left: 700px;
-  margin-top: -62px; 
-}
-.button-seven{
-  padding:20px;
-  display: flex;
-  margin-left: 1000px;
-  margin-top: -62px;
-}
-.button-fourtyeight{
-  padding:20px;
-  display: flex;
-  margin-left: 1240px;
-  margin-top: -62px;
 }
 .search {
   padding: 0.5rem 1.5rem;
@@ -137,25 +83,6 @@ button {
   padding: 20px 10px;
   margin-top: 5px;
   display: inline-block;
-  /* flex-direction: column; */
-  border-radius: 1rem;
-  width:250px;
-  background: skyblue;
-  box-shadow: #1A374D 0px 50px 100px -20px,
-  #1A374D 0px 30px 60px -30px,
-  #1A374D 0px -2px 6px 0px inset;
-   padding: 0.5rem;
-    
-   
-}
-.thirty-data{
-  margin: 10px;
-  text-align:center;
-  padding: 20px 10px;
-  margin-left: -550px;
-  margin-top: 5px; 
-  display: inline-block;
-  /* flex-direction: column; */
   border-radius: 1rem;
   width:250px;
   background: skyblue;
@@ -164,51 +91,8 @@ button {
   #1A374D 0px -2px 6px 0px inset;
    padding: 0.5rem;
 }
-.sixteen-data{
-  margin: 10px;
-  text-align:center;
-  padding: 20px 10px;
-  margin-left: 50px;
-  margin-top: 5px; 
-  display: inline-block;
-  /* flex-direction: column; */
-  border-radius: 1rem;
-  width:250px;
-  background: skyblue;
-  box-shadow: #1A374D 0px 50px 100px -20px,
-  #1A374D 0px 30px 60px -30px,
-  #1A374D 0px -2px 6px 0px inset;
-   padding: 0.5rem;
-}
-.seven-data{
-  margin: 10px;
-  text-align:center;
-  padding: 20px 10px;
-  margin-left: 700px;
-  margin-top: 5px; 
-  display: inline-block;
-  /* flex-direction: column; */
-  border-radius: 1rem;
-  width:250px;
-  background: skyblue;
-  box-shadow: #1A374D 0px 50px 100px -20px,
-  #1A374D 0px 30px 60px -30px,
-  #1A374D 0px -2px 6px 0px inset;
-   padding: 0.5rem;
-}
-.fourtyeight-data{
-  margin: 10px;
-  text-align:center;
-  padding: 20px 10px;
-  margin-left: 1230px;
-  margin-top: 5px; 
-  display: inline-block;
-  /* flex-direction: column; */
-  border-radius: 1rem;
-  width:250px;
-  background: skyblue;
-  box-shadow: #1A374D 0px 50px 100px -20px,
-  #1A374D 0px 30px 60px -30px,
-  #1A374D 0px -2px 6px 0px inset;
-   padding: 0.5rem;
+.card-container{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 100px;
 }

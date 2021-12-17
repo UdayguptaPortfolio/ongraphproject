@@ -106,6 +106,7 @@ useEffect(() => {
 
   const weatherList = weatherthirtydata?.list?.map((el)=>(
     <div>
+      <div >
       <div className="main-thirty">
             <div className="weather-icon">
               <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
@@ -120,6 +121,7 @@ useEffect(() => {
             </div>
             </div>
         {/* */}
+    </div>
     </div>
 ))
 const weatherList_sixteen = weathersixteendata?.list?.map((el)=>(
@@ -215,7 +217,7 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.list?.map((el)=>(
           <button type="button" onClick={() => getthirtyData()}>30 day Weather</button>
           <></>
           {weatherthirtydata!==null?(
-<div>
+<div className='card-container'>
 {weatherList}
 </div>
           ): null}
@@ -223,16 +225,17 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.list?.map((el)=>(
           <br/><br/>
           <h2>16 day ForeCasting</h2>
           <button type="button" onClick={() => getsixteenData()}>16 day Weather</button>
-          {weatherList_sixteen}
+          <div className='card-container'>{weatherList_sixteen}</div>
+          
           <br/><br/>
           <h2>7 day ForeCasting</h2>
           <button type="button" onClick={() => getsevenData()}>7 day Weather</button>
-          {weatherList_seven}
+          <div className='card-container'> {weatherList_seven}</div>
 
           <br/><br/>
           <h2>48 hours ForeCasting</h2>
           <button type="button" onClick={() => getfourtyeightData()}>48 hours Weather</button>
-          {weatherList_fourtyeight}
+          <div className='card-container'>{weatherList_fourtyeight}</div>
           
 
     </div>
