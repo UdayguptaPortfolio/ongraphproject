@@ -12,65 +12,51 @@ const[weatherfourtyeightdata,setWeatherFourtyEightData]=useState(null);
 const[weatherfivedata,setWeatherFiveData]=useState(null);
 const[lat,setLat]=useState('')
 const[lon,setLon]=useState('')
-  const [city, setCity] = useState('');
-  const [loading, setLoading] = useState(false);
+const [city, setCity] = useState('');
 
   //Get Data for Current Live Weather
   const getCurrentData = async () => {
     try{
-        setLoading(true);
         const data = await currentweather(city);
         setLat(data.coord.lat)
         setLon(data.coord.lon)
         setWeatherData(data);
-        setLoading(false);
     }catch(error) {
       console.log(error.message);
-      setLoading(false);
     }
   }
   //Get Data for 5 days in 3hours time frame
 const getfiveData=async()=>{
   try{
-    setLoading(true);
     const data_five=await fivedayweather(city);
     setWeatherFiveData(data_five)
-    setLoading(false);
   }catch(error)
   {
     console.log(error.message);
-    setLoading(false);
   }
 }
 // Get Data for 7 days Weather
 const getsevenData=async()=>{
   try{
-    setLoading(true);
     const data_seven=await sevendayweather(lat,lon);
     console.log(data_seven)
     setWeatherSevenData(data_seven)
-    setLoading(false);
   }catch(error)
   {
     console.log(error.message);
-    setLoading(false);
   }
 }
 // Get Data for 48 hours Weather
 const getfourtyeightData=async()=>{
   try{
-    setLoading(true);
     const data_fourtyeight=await fourtyeighthours(lat,lon);
     setWeatherFourtyEightData(data_fourtyeight)
-    setLoading(false);
   }catch(error)
   {
     console.log(error.message);
-    setLoading(false);
   }
 }
-const escapebutton=()=>{
-setLoading(false);
+const escape=()=>{
 setWeatherData(null);
 setWeatherFiveData(null)
 setWeatherFourtyEightData(null);
@@ -78,16 +64,13 @@ setWeatherSevenData(null);
 }
 useEffect(() => {
   getCurrentData();
-  getsevenData();
-  getfiveData();
-  getfourtyeightData();
 }, []);
 
 const weatherList_five = weatherfivedata?.list?.map((el)=>(
   <div>
        <div className="main-thirty">
        <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
-       <b>{new Date(el.dt*1000).toLocaleDateString('en-US',{weekday: 'long'} ) }</b>
+       <b>{new Date(el.dt*1000).toDateString('en-US',{weekday: 'long'} ) }</b>
             <div className="weather-icon">
               <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
             </div>
@@ -153,14 +136,15 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         <div className="search">
           <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter your city name"/>
           <button type="button" onClick={() => getCurrentData()}>Current weather</button>
-          <button type="button" onClick={() => escapebutton()}>Escape</button>
+        
         </div>
           <br/><br/><br/><br/>
           <h2>Current Weather Condition</h2>
         <>
         <br/><br/>      
           {weatherdata !== null ? (
-          <div className="main">
+          <div className="main"
+          onClick={escape}>
             <b>Date:<i> {new Date(weatherdata.dt*1000).toDateString() } </i></b>
             <div className="weather-icon">
               <img src={`http://openweathermap.org/img/w/${weatherdata.weather[0].icon}.png`} alt="imgicon"/>
