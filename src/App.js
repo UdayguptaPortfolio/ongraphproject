@@ -13,7 +13,6 @@ const[weatherfivedata,setWeatherFiveData]=useState(null);
 const[lat,setLat]=useState('')
 const[lon,setLon]=useState('')
 const [city, setCity] = useState('');
-const myHeading=["5 day ForeCasting with Different Time frames","7 day ForeCasting","48 hours ForeCasting"];
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
     try{
@@ -103,13 +102,15 @@ const weatherList_seven = weathersevendata?.daily?.map((el)=>(
               {el.timezone}
               <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
             </div>
-            <h3>{el.weather[0].main}</h3>
+            <h3>{el.weather[0].description}</h3>
             <h2>{parseFloat(el.temp.day-273.15).toFixed(1)}&deg;C</h2>
             
             <div className='description'>
-            <h5>Pressure: {el.pressure}||Minimum:{parseFloat(el.temp.min - 273.15).toFixed(1)}&deg;C
-            || Maximum: {parseFloat(el.temp.max - 273.15).toFixed(1)}&deg;C 
-              || Humidity: {el.humidity}%</h5>
+            <h3>Sunrise: {new Date(el.sunrise*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}<br/>
+            Sunset:{new Date(el.sunset*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}<br/></h3><h5>
+            Minimum Temperature:{parseFloat(el.temp.min - 273.15).toFixed(1)}&deg;C
+            Maximum Temperature: {parseFloat(el.temp.max - 273.15).toFixed(1)}&deg;C 
+            Humidity: {el.humidity}%</h5>
 
             </div>
             </div>
@@ -123,12 +124,13 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
             <div className="weather-icon">
               <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
             </div>
-            <h3>{el.weather[0].main}</h3>
+            <h3>{el.weather[0].description}</h3>
             <h2>{parseFloat(el.temp-273.15).toFixed(1)}&deg;C</h2>
-            
             <div className='description'>
-            <h5>Pressure: {el.pressure}||Minimum:{parseFloat(el.temp.min - 273.15).toFixed(1)}&deg;C
-            || Maximum: {parseFloat(el.temp.max - 273.15).toFixed(1)}&deg;C 
+            <h5>Wind Speed: {el.wind_speed}NW Km/hr
+            Wind Gusts: {el.wind_gust}NW Km/hr<br/>
+            Dew Points: {parseFloat(el.dew_point- 273.15).toFixed(1)}&deg;C<br/>
+            Clouds: {el.clouds}%
               || Humidity: {el.humidity}%</h5>
             </div>
             </div>
