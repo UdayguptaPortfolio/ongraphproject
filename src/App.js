@@ -74,6 +74,7 @@ setWeatherFiveData(null)
 setWeatherFourtyEightData(null);
 setWeatherSevenData(null);
 }
+
 const weatherList_five = weatherfivedata?.list?.map((el)=>(
   <div>
        <div className="main-thirty">
@@ -115,27 +116,23 @@ const weatherList_seven = weathersevendata?.daily?.map((el)=>(
   </div>
 ))
 const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
-  function abc()
-  {
-    <div>
-    <div className="main-thirty">
-    <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
-    <b>{new Date(el.dt*1000).toLocaleDateString('en-US',{weekday: 'long'} ) }</b>
-         <div className="weather-icon">
-           <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
-         </div>
-         <h3>{el.weather[0].main}</h3>
-         <h2>{parseFloat(el.temp-273.15).toFixed(1)}&deg;C</h2>
-         
-         <div className='description'>
-         <h5>Pressure: {el.pressure}||Minimum:{parseFloat(el.temp.min - 273.15).toFixed(1)}&deg;C
-         || Maximum: {parseFloat(el.temp.max - 273.15).toFixed(1)}&deg;C 
-           || Humidity: {el.humidity}%</h5>
-         </div>
-         </div>
-</div>
-  }
- 
+  <div>
+       <div className="main-thirty">
+       <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
+       <b>{new Date(el.dt*1000).toLocaleDateString('en-US',{weekday: 'long'} ) }</b>
+            <div className="weather-icon">
+              <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
+            </div>
+            <h3>{el.weather[0].main}</h3>
+            <h2>{parseFloat(el.temp-273.15).toFixed(1)}&deg;C</h2>
+            
+            <div className='description'>
+            <h5>Pressure: {el.pressure}||Minimum:{parseFloat(el.temp.min - 273.15).toFixed(1)}&deg;C
+            || Maximum: {parseFloat(el.temp.max - 273.15).toFixed(1)}&deg;C 
+              || Humidity: {el.humidity}%</h5>
+            </div>
+            </div>
+  </div>
 ))
   return (
     <div className="App">
