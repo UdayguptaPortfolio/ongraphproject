@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import './App.css';
 import currentweather from './currentweather';
 import sevendayweather from './sevendayweather';
@@ -13,9 +13,16 @@ const[weatherfivedata,setWeatherFiveData]=useState(null);
 const[lat,setLat]=useState('')
 const[lon,setLon]=useState('')
 const [city, setCity] = useState('');
+const[errorMessage,setErrorMessage]=useState('')
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
     try{
+      if(city===''||city===null)
+      {
+        setErrorMessage('Please Enter City Name........');
+        setWeatherData(null)
+      }
+      else{
         const data = await currentweather(city);
         setLat(data.coord.lat)
         setLon(data.coord.lon)
@@ -23,6 +30,8 @@ const getCurrentData = async () => {
         setWeatherFiveData(null)
     setWeatherSevenData(null)
     setWeatherFourtyEightData(null)
+    setErrorMessage(null)
+      }
     }catch(error) {
       console.log(error.message);
     }
@@ -30,11 +39,22 @@ const getCurrentData = async () => {
   //Get Data for 5 days in 3hours time frame
 const getfiveData=async()=>{
   try{
+    if(city===''||city===null)
+      {
+      setErrorMessage('Please Enter City Name........');
+      setWeatherFiveData(null)
+      setWeatherSevenData(null)
+      setWeatherFourtyEightData(null)
+      setWeatherData(null)
+      }
+      else{
     const data_five=await fivedayweather(city);
     setWeatherFiveData(data_five)
     setWeatherData(null)
     setWeatherSevenData(null)
     setWeatherFourtyEightData(null)
+    setErrorMessage(null)
+      }
   }catch(error)
   {
     console.log(error.message);
@@ -43,12 +63,24 @@ const getfiveData=async()=>{
 // Get Data for 7 days Weather
 const getsevenData=async()=>{
   try{
+    if(city===''||city===null)
+    {
+      setErrorMessage('Please Enter City Name........');
+      setWeatherFiveData(null)
+      setWeatherSevenData(null)
+      setWeatherFourtyEightData(null)
+      setWeatherData(null)
+    }
+      else if(lat===''||lon===''){setErrorMessage('Please First Click on Current Weather');setWeatherFiveData(null)}
+      else{
     const data_seven=await sevendayweather(lat,lon);
     console.log(data_seven)
     setWeatherSevenData(data_seven)
     setWeatherData(null)
     setWeatherFiveData(null)
     setWeatherFourtyEightData(null)
+    setErrorMessage(null)
+      }
   }catch(error)
   {
     console.log(error.message);
@@ -57,11 +89,22 @@ const getsevenData=async()=>{
 // Get Data for 48 hours Weather
 const getfourtyeightData=async()=>{
   try{
+    if(city===''||city===null){
+      setErrorMessage('Please Enter City Name........');
+      setWeatherFiveData(null)
+      setWeatherSevenData(null)
+      setWeatherFourtyEightData(null)
+      setWeatherData(null)
+    }
+      else if(lat===''||lon===''){setErrorMessage('Please First Click on Current Weather');setWeatherFiveData(null)}
+      else{
     const data_fourtyeight=await fourtyeighthours(lat,lon);
     setWeatherFourtyEightData(data_fourtyeight)
     setWeatherData(null)
     setWeatherFiveData(null)
     setWeatherSevenData(null)
+    setErrorMessage(null)
+      }
   }catch(error)
   {
     console.log(error.message);
@@ -72,8 +115,8 @@ setWeatherData(null);
 setWeatherFiveData(null)
 setWeatherFourtyEightData(null);
 setWeatherSevenData(null);
+setErrorMessage(null);
 }
-
 const weatherList_five = weatherfivedata?.list?.map((el)=>(
   <div>
        <div className="main-thirty">
@@ -104,14 +147,12 @@ const weatherList_seven = weathersevendata?.daily?.map((el)=>(
             </div>
             <h3>{el.weather[0].description}</h3>
             <h2>{parseFloat(el.temp.day-273.15).toFixed(1)}&deg;C</h2>
-            
             <div className='description'>
             <h3>Sunrise: {new Date(el.sunrise*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}<br/>
             Sunset:{new Date(el.sunset*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}<br/></h3><h5>
             Minimum Temperature:{parseFloat(el.temp.min - 273.15).toFixed(1)}&deg;C
             Maximum Temperature: {parseFloat(el.temp.max - 273.15).toFixed(1)}&deg;C 
             Humidity: {el.humidity}%</h5>
-
             </div>
             </div>
   </div>
@@ -139,7 +180,7 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
   return (
     <div className="App">
       <header className="App-header">
-        Weather-Finder App
+        Weather-Finder App 
         </header>
           <br/>
           <div className='container'>
@@ -151,7 +192,8 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         <button type="button" onClick={() => getsevenData()}>7 day Weather</button>
         <button type="button" onClick={() => getfourtyeightData()}>48 hours Weather</button>
         <>
-        <br/><br/>      
+        <br/><br/>  
+        <div><h2 className='Error-message'>{errorMessage}</h2></div>    
           {weatherdata !== null ? (
             <div>
               <h2 className='heading'>Current Weather Condition</h2><br/>
@@ -178,12 +220,8 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         ) : null}      
           </>
           </div>
-          {/* <h2>5 day ForeCasting with Different Time frames</h2> */}
-          {/* <button type="button" onClick={() => getfiveData()}>5 day Weather</button> */}
           <div className='card-container'>{weatherList_five}</div>
-          {/* <h2>7 day ForeCasting</h2> */}
           <div className='card-container'> {weatherList_seven}</div>
-          {/* <h2>48 hours ForeCasting</h2> */}
           <div className='card-container'>{weatherList_fourtyeight}</div>
     </div>
   );

@@ -121,3 +121,10 @@ input[type=text]{
   color: rgb(52, 16, 85);
   border-radius: 50px;
 }
+.Error-message{
+  color:rgb(170, 13, 13);
+  margin-top: -60px;
+}
+.header-location{
+  margin-left: 50px;
+}
