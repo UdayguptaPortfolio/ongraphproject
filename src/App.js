@@ -4,6 +4,8 @@ import currentweather from './currentweather';
 import sevendayweather from './sevendayweather';
 import fourtyeighthours from './fourtyeighthours';
 import fivedayweather from './fivedayweather';
+import GoogleMapIntegration from './GoogleMapIntegration';
+import { Marker } from '@react-google-maps/api';
 
 function App() {
 const [weatherdata, setWeatherData] = useState(null);
@@ -14,6 +16,7 @@ const[lat,setLat]=useState('')
 const[lon,setLon]=useState('')
 const [city, setCity] = useState('');
 const[errorMessage,setErrorMessage]=useState('')
+
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
     try{
@@ -138,11 +141,11 @@ const weatherList_five = weatherfivedata?.list?.map((el)=>(
 ))
 const weatherList_seven = weathersevendata?.daily?.map((el)=>(
   <div>
+
        <div className="main-thirty">
        <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
        <b>{new Date(el.dt*1000).toDateString('en-US',{weekday: 'long'} ) }</b>
             <div className="weather-icon">
-              {el.timezone}
               <img src={`http://openweathermap.org/img/w/${el.weather[0].icon}.png`} alt="imgicon"/>
             </div>
             <h3>{el.weather[0].description}</h3>
@@ -167,12 +170,13 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
             </div>
             <h3>{el.weather[0].description}</h3>
             <h2>{parseFloat(el.temp-273.15).toFixed(1)}&deg;C</h2>
-            <div className='description'>
+            <div>
             <h5>Wind Speed: {el.wind_speed}NW Km/hr
             Wind Gusts: {el.wind_gust}NW Km/hr<br/>
             Dew Points: {parseFloat(el.dew_point- 273.15).toFixed(1)}&deg;C<br/>
             Clouds: {el.clouds}%
               || Humidity: {el.humidity}%</h5>
+    
             </div>
             </div>
   </div>
@@ -183,10 +187,11 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         Weather-Finder App 
         </header>
           <br/>
+          <GoogleMapIntegration lat={lat} lng={lon}/>
           <div className='container'>
         <div className="search">
           <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter your city name"/>
-        </div>
+        </div>  
         <button type="button" onClick={() => getCurrentData()}>Current weather</button>
         <button type="button" onClick={() => getfiveData()}>5 day Weather</button> 
         <button type="button" onClick={() => getsevenData()}>7 day Weather</button>
@@ -220,10 +225,13 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         ) : null}      
           </>
           </div>
-          <div className='card-container'>{weatherList_five}</div>
+          {/* <div className='card-heading'>
+            <h2>Weather Forecasting.....</h2> */}
+            <div className='card-container'>{weatherList_five}</div>
           <div className='card-container'> {weatherList_seven}</div>
           <div className='card-container'>{weatherList_fourtyeight}</div>
     </div>
+    
   );
 }
 export default App;

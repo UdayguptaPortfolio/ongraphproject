@@ -79,7 +79,7 @@ button:hover{
   margin-right: auto;
 }
 .main-thirty{
-  margin: 0;
+  margin: 5px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   text-align:center;
   padding: 20px 10px;
@@ -122,9 +122,18 @@ input[type=text]{
   border-radius: 50px;
 }
 .Error-message{
-  color:rgb(170, 13, 13);
+  color:rgba(8, 1, 1, 0.863);
   margin-top: -60px;
+  box-shadow: #f7f7f7 0px 50px 100px -20px,
+  #f1f1f1 0px 30px 60px -30px,
+  #efeff0 0px -2px 6px 0px inset;
+  background: white;
 }
 .header-location{
   margin-left: 50px;
+}
+.card-heading{
+  display: flex;
+  flex-direction: column;
+  margin-top: -10px;
 }
