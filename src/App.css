@@ -137,3 +137,6 @@ input[type=text]{
   flex-direction: column;
   margin-top: -10px;
 }
+label{
+  height: 10px;
+}
