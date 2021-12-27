@@ -1,9 +1,6 @@
 import React,{useState} from 'react';
 import './App.css';
-import currentweather from './currentweather';
-import sevendayweather from './sevendayweather';
-import fourtyeighthours from './fourtyeighthours';
-import fivedayweather from './fivedayweather';
+import {currentweather,sevendayweather,fourtyeighthours,fivedayweather} from './openweather';
 import GoogleMapIntegration from './GoogleMapIntegration';
 import { Marker } from '@react-google-maps/api';
 
@@ -14,6 +11,7 @@ const[weatherfourtyeightdata,setWeatherFourtyEightData]=useState(null);
 const[weatherfivedata,setWeatherFiveData]=useState(null);
 const[lat,setLat]=useState('')
 const[lon,setLon]=useState('')
+const[temp,setTemp]=useState('')
 const [city, setCity] = useState('');
 const[errorMessage,setErrorMessage]=useState('')
 
@@ -29,6 +27,7 @@ const getCurrentData = async () => {
         const data = await currentweather(city);
         setLat(data.coord.lat)
         setLon(data.coord.lon)
+        setTemp(data.main.temp)
         setWeatherData(data);
         setWeatherFiveData(null)
     setWeatherSevenData(null)
@@ -187,7 +186,7 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         Weather-Finder App 
         </header>
           <br/>
-          <GoogleMapIntegration lat={lat} lng={lon}/>
+          <GoogleMapIntegration lat={lat} lng={lon} temp={temp}/>
           <div className='container'>
         <div className="search">
           <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter your city name"/>
