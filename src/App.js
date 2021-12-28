@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import './App.css';
 import {currentweather,sevendayweather,fourtyeighthours,fivedayweather} from './openweather';
 import GoogleMapIntegration from './GoogleMapIntegration';
+import Signin from './Signin';
 
 
 function App() {
@@ -229,6 +230,7 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
             <div className='card-container'>{weatherList_five}</div>
           <div className='card-container'> {weatherList_seven}</div>
           <div className='card-container'>{weatherList_fourtyeight}</div>
+          <Signin/>
     </div>
     
   );

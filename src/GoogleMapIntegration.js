@@ -27,14 +27,14 @@ return (
   <Wrapper
   apiKey={"AIzaSyDA-Uc8D0Lt2BZz11q2RVHDHwqCv7LFpkg"}>
   <GoogleMap  mapContainerStyle={{width:"95%",height:'40vh',marginBottom:'5vh',marginLeft:'5vh'}}
-  zoom={4}
+  zoom={5}
   // center={props}
   onLoad={handleLoad}
   onDrag={handleCenter}
   center={position}
   >
     <InfoBox position={{lat:props.lat , lng:props.lng}} ><h1>{props.temp}</h1></InfoBox>
-    <Marker position={{lat:props.lat , lng:props.lng}} 
+    <Marker position={{lat:props.lat , lng:props.lng} } 
     />
   </GoogleMap>
     </Wrapper>
