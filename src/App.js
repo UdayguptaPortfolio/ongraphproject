@@ -11,11 +11,12 @@ function App() {
 {/* <Homepage/> */}
         <BrowserRouter>
         <Routes>
-          <Route exact path='/' element={<Homepage/>}/>
+          <Route exact path='/' element={<Signin/>}/>
         </Routes>
             <Routes>
                 <Route path ='/Signin' element = {<Signin/>} />
                 <Route path ='/Register' element = {<Register/>} />
+                <Route path='/Homepage' element={<Homepage/>}/>
             </Routes>
         </BrowserRouter>
 

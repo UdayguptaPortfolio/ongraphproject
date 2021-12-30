@@ -3,9 +3,10 @@ import './App.css';
 import {currentweather,sevendayweather,fourtyeighthours,fivedayweather} from './openweather';
 import GoogleMapIntegration from './GoogleMapIntegration';
 import {Link} from "react-router-dom";
+import Axios  from 'axios';
 
 
-function Homepage() {
+function Homepage(props) {
 const [weatherdata, setWeatherData] = useState(null);
 const[weathersevendata,setWeatherSevenData]=useState(null);
 const[weatherfourtyeightdata,setWeatherFourtyEightData]=useState(null);
@@ -19,6 +20,7 @@ const[errorMessage,setErrorMessage]=useState('')
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
     try{
+      
       if(city===''||city===null)
       {
         setErrorMessage('Please Enter City Name........');
@@ -34,7 +36,14 @@ const getCurrentData = async () => {
     setWeatherSevenData(null)
     setWeatherFourtyEightData(null)
     setErrorMessage(null)
-      }
+      console.log("cityname",city,localStorage.getItem("email"))
+      Axios.post('http://localhost:4000/app/city',{
+        cityname:city,
+        email:localStorage.getItem("email")
+      }).then((res)=>{
+        console.log(res)
+      })
+    }
     }catch(error) {
       console.log(error.message);
     }
@@ -181,6 +190,7 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
             </div>
   </div>
 ))
+
   return (
     <div className="App">
       <header className="App-header">
