@@ -6,37 +6,31 @@ import {Link} from "react-router-dom";
 import Axios  from 'axios';
 
 
-function Homepage(props) {
-const [weatherdata, setWeatherData] = useState(null);
-const[weathersevendata,setWeatherSevenData]=useState(null);
-const[weatherfourtyeightdata,setWeatherFourtyEightData]=useState(null);
-const[weatherfivedata,setWeatherFiveData]=useState(null);
+function Homepage() {
 const[lat,setLat]=useState(20.5937)
 const[lon,setLon]=useState(78.9629)
 const[temp,setTemp]=useState('')
 const [city, setCity] = useState('');
 const[errorMessage,setErrorMessage]=useState('')
+const [selectedapi,setSelectedApi]=useState('')
+const[commonResponseData,setCommonResponseData]=useState('')
+
 
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
     try{
-      
       if(city===''||city===null)
       {
         setErrorMessage('Please Enter City Name........');
-        setWeatherData(null)
+        setSelectedApi(null)
       }
       else{
         const data = await currentweather(city);
         setLat(data.coord.lat)
         setLon(data.coord.lon)
         setTemp(data.main.temp)
-        setWeatherData(data);
-        setWeatherFiveData(null)
-    setWeatherSevenData(null)
-    setWeatherFourtyEightData(null)
-    setErrorMessage(null)
-      console.log("cityname",city,localStorage.getItem("email"))
+        setCommonResponseData(data)
+        setSelectedApi("weatherdata")
       Axios.post('http://localhost:4000/app/city',{
         cityname:city,
         email:localStorage.getItem("email")
@@ -48,24 +42,22 @@ const getCurrentData = async () => {
       console.log(error.message);
     }
   }
+  console.log("My API:",selectedapi)
+
   //Get Data for 5 days in 3hours time frame
 const getfiveData=async()=>{
   try{
     if(city===''||city===null)
       {
       setErrorMessage('Please Enter City Name........');
-      setWeatherFiveData(null)
-      setWeatherSevenData(null)
-      setWeatherFourtyEightData(null)
-      setWeatherData(null)
+     setSelectedApi(null)
       }
       else{
+        setSelectedApi(null)
+        console.log("I am inside fiveDay Weather",city)
     const data_five=await fivedayweather(city);
-    setWeatherFiveData(data_five)
-    setWeatherData(null)
-    setWeatherSevenData(null)
-    setWeatherFourtyEightData(null)
-    setErrorMessage(null)
+    setCommonResponseData(data_five);
+    setSelectedApi("weatherfivedata")
       }
   }catch(error)
   {
@@ -78,20 +70,13 @@ const getsevenData=async()=>{
     if(city===''||city===null)
     {
       setErrorMessage('Please Enter City Name........');
-      setWeatherFiveData(null)
-      setWeatherSevenData(null)
-      setWeatherFourtyEightData(null)
-      setWeatherData(null)
+      setSelectedApi(null)
     }
-      else if(lat===''||lon===''){setErrorMessage('Please First Click on Current Weather');setWeatherFiveData(null)}
       else{
+        setSelectedApi(null)
     const data_seven=await sevendayweather(lat,lon);
-    console.log(data_seven)
-    setWeatherSevenData(data_seven)
-    setWeatherData(null)
-    setWeatherFiveData(null)
-    setWeatherFourtyEightData(null)
-    setErrorMessage(null)
+    setCommonResponseData(data_seven)
+    setSelectedApi("weathersevendata")
       }
   }catch(error)
   {
@@ -103,19 +88,13 @@ const getfourtyeightData=async()=>{
   try{
     if(city===''||city===null){
       setErrorMessage('Please Enter City Name........');
-      setWeatherFiveData(null)
-      setWeatherSevenData(null)
-      setWeatherFourtyEightData(null)
-      setWeatherData(null)
+      setSelectedApi(null)
     }
-      else if(lat===''||lon===''){setErrorMessage('Please First Click on Current Weather');setWeatherFiveData(null)}
       else{
+        setSelectedApi(null)
     const data_fourtyeight=await fourtyeighthours(lat,lon);
-    setWeatherFourtyEightData(data_fourtyeight)
-    setWeatherData(null)
-    setWeatherFiveData(null)
-    setWeatherSevenData(null)
-    setErrorMessage(null)
+    setCommonResponseData(data_fourtyeight)
+    setSelectedApi("weatherfourtyeightdata")
       }
   }catch(error)
   {
@@ -123,13 +102,36 @@ const getfourtyeightData=async()=>{
   }
 }
 const escape=()=>{
-setWeatherData(null);
-setWeatherFiveData(null)
-setWeatherFourtyEightData(null);
-setWeatherSevenData(null);
-setErrorMessage(null);
+setSelectedApi(null)
 }
-const weatherList_five = weatherfivedata?.list?.map((el)=>(
+
+const currentweather_List=selectedapi==='weatherdata' && commonResponseData?
+<div>
+{console.log("I am inside current weather")}
+<h2 className='heading'>Current Weather Condition</h2><br/>
+<div className="main"
+onClick={escape}>
+<b>Date:<i> {new Date(commonResponseData.dt*1000).toDateString() } </i></b>
+<div className="weather-icon">
+<img src={`http://openweathermap.org/img/w/${commonResponseData.weather[0].icon}.png`} alt="imgicon"/>
+</div>
+<h3>{commonResponseData.weather[0].main}</h3>
+<div className="temperature">
+<h1>{parseFloat(commonResponseData.main.temp - 273.15).toFixed(1)}&deg;C</h1>
+</div>
+<div className="location">
+<h3><i></i>{commonResponseData.name} | {commonResponseData.sys.country}</h3>
+</div>
+<div className="temperature-range">
+<h5>Minimum: {parseFloat(commonResponseData.main.temp_min - 273.15).toFixed(1)}&deg;C 
+|| Maximum: {parseFloat(commonResponseData.main.temp_max - 273.15).toFixed(1)}&deg;C 
+|| Humidity: {commonResponseData.main.humidity}%</h5>
+</div>
+</div>
+</div>
+:null
+
+const weatherList_five = selectedapi==='weatherfivedata' && commonResponseData?.list?.map((el)=>(
   <div>
        <div className="main-thirty">
        <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
@@ -148,7 +150,7 @@ const weatherList_five = weatherfivedata?.list?.map((el)=>(
             </div>
   </div>
 ))
-const weatherList_seven = weathersevendata?.daily?.map((el)=>(
+const weatherList_seven = selectedapi==='weathersevendata' && commonResponseData?.daily?.map((el)=>(
   <div>
 
        <div className="main-thirty">
@@ -169,7 +171,7 @@ const weatherList_seven = weathersevendata?.daily?.map((el)=>(
             </div>
   </div>
 ))
-const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
+const weatherList_fourtyeight = selectedapi==='weatherfourtyeightdata' && commonResponseData?.hourly?.map((el)=>(
   <div>
        <div className="main-thirty">
        <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
@@ -211,37 +213,12 @@ const weatherList_fourtyeight = weatherfourtyeightdata?.hourly?.map((el)=>(
         <>
         <br/><br/>  
         <div><h2 className='Error-message'>{errorMessage}</h2></div>    
-          {weatherdata !== null ? (
-            <div>
-              <h2 className='heading'>Current Weather Condition</h2><br/>
-          <div className="main"
-          onClick={escape}>
-            <b>Date:<i> {new Date(weatherdata.dt*1000).toDateString() } </i></b>
-            <div className="weather-icon">
-              <img src={`http://openweathermap.org/img/w/${weatherdata.weather[0].icon}.png`} alt="imgicon"/>
-            </div>
-            <h3>{weatherdata.weather[0].main}</h3>
-            <div className="temperature">
-              <h1>{parseFloat(weatherdata.main.temp - 273.15).toFixed(1)}&deg;C</h1>
-            </div>
-            <div className="location">
-              <h3><i></i>{weatherdata.name} | {weatherdata.sys.country}</h3>
-            </div>
-            <div className="temperature-range">
-              <h5>Minimum: {parseFloat(weatherdata.main.temp_min - 273.15).toFixed(1)}&deg;C 
-              || Maximum: {parseFloat(weatherdata.main.temp_max - 273.15).toFixed(1)}&deg;C 
-              || Humidity: {weatherdata.main.humidity}%</h5>
-            </div>
-        </div>
-        </div>
-        ) : null}      
           </>
           </div>
-          {/* <div className='card-heading'>
-            <h2>Weather Forecasting.....</h2> */}
-            <div className='card-container'>{weatherList_five}</div>
-          <div className='card-container'> {weatherList_seven}</div>
-          <div className='card-container'>{weatherList_fourtyeight}</div>
+                <div className='card-container'>{selectedapi==='weatherdata' && currentweather_List}</div>
+            <div className='card-container'>{selectedapi==='weatherfivedata' && weatherList_five}</div>
+          <div className='card-container'> {selectedapi==='weathersevendata' && weatherList_seven}</div>
+          <div className='card-container'>{selectedapi==='weatherfourtyeightdata' && weatherList_fourtyeight}</div>
           <div> 
            </div>
     </div>
