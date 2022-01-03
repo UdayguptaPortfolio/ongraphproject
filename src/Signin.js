@@ -22,7 +22,7 @@ const login=()=>{
             console.log(res)
             localStorage.setItem("email",email);
             setLoginStatus(res.data.message)
-                navigate('/Homepage');
+                navigate('/DashBoard');
         }
         else{
             setLoginStatus('All Fields are Mandatory!!!')
@@ -32,9 +32,8 @@ const login=()=>{
     return (
         <div className='App'>
       <header className="App-header">
-       <h2 className='header'> Weather-Finder App</h2> 
-        <button className='button-header'><Link to='/Signin'>Login</Link></button>
-        <button className='button-header2'><Link to='/Register'>Register</Link></button>
+       <h2 className='header-signin'> Weather-Finder App</h2> 
+        <button className='button-header-signin'><b><Link to='/Register'>Register Yourself</Link></b></button>
         </header>
             <div className="Login">
                 <h1>Login</h1>

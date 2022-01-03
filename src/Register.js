@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "./App.css";
+import { Link } from "react-router-dom";
 
 function Register(){
     const[usernameReg,setUserNameReg]=useState('')
@@ -28,7 +29,8 @@ function Register(){
         <input type="text" placeholder="Username" onChange={(event)=>{setUserNameReg(event.target.value)}}/>
         <input type="email" placeholder="Email" onChange={(event)=>{setEmailReg(event.target.value)}}/>
             <input type="password" placeholder="Password" onChange={(event)=>{setPasswordReg(event.target.value)}}/>
-        <br/><br/><br/><br/><br/><br/><br/><button onClick={register}>Register</button> {registerstatus} 
+        <br/><br/><br/><br/><br/><br/><br/><button onClick={register}>Register</button>{registerstatus} 
+        <button className='button-login'><b><Link to='/Signin'>Login</Link></b></button> 
         </div>
         </div>
     )
