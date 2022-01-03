@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 const cityTempelate=new mongoose.Schema({
     cityname:{
-        type:String
+        type:[String]
     },
     email:{
         type:String

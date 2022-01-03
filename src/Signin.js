@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "./App.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 function Signin(){
     const navigate = useNavigate();
@@ -31,6 +31,11 @@ const login=()=>{
 };
     return (
         <div className='App'>
+      <header className="App-header">
+       <h2 className='header'> Weather-Finder App</h2> 
+        <button className='button-header'><Link to='/Signin'>Login</Link></button>
+        <button className='button-header2'><Link to='/Register'>Register</Link></button>
+        </header>
             <div className="Login">
                 <h1>Login</h1>
                 <input type="text" placeholder="Enter your Username...."  onChange={(event)=>{setUserName(event.target.value)}}/>

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import Axios  from 'axios';
 
 
-function Homepage() {
+function DashBoard() {
 const[lat,setLat]=useState(20.5937)
 const[lon,setLon]=useState(78.9629)
 const[temp,setTemp]=useState('')
@@ -107,8 +107,8 @@ setSelectedApi(null)
 
 const currentweather_List=selectedapi==='weatherdata' && commonResponseData?
 <div>
-{console.log("I am inside current weather")}
-<h2 className='heading'>Current Weather Condition</h2><br/>
+  {/* <h2 className='heading'>Current Weather Condition</h2><br/> */}
+<div className='card-container'>
 <div className="main"
 onClick={escape}>
 <b>Date:<i> {new Date(commonResponseData.dt*1000).toDateString() } </i></b>
@@ -126,6 +126,7 @@ onClick={escape}>
 <h5>Minimum: {parseFloat(commonResponseData.main.temp_min - 273.15).toFixed(1)}&deg;C 
 || Maximum: {parseFloat(commonResponseData.main.temp_max - 273.15).toFixed(1)}&deg;C 
 || Humidity: {commonResponseData.main.humidity}%</h5>
+</div>
 </div>
 </div>
 </div>
@@ -197,8 +198,9 @@ const weatherList_fourtyeight = selectedapi==='weatherfourtyeightdata' && common
     <div className="App">
       <header className="App-header">
        <h2 className='header'> Weather-Finder App</h2> 
-        <button className='button-header'><Link to='/Signin'>Login</Link></button>
-        <button className='button-header2'><Link to='/Register'>Register</Link></button>
+       <h3 className='header-D'>Hello,</h3>
+        {/* <button className='button-header'><Link to='/Signin'>Login</Link></button>
+        <button className='button-header2'><Link to='/Register'>Register</Link></button> */}
         </header>
           <br/>
           <GoogleMapIntegration lat={lat} lng={lon} temp={(temp- 273.15).toFixed(1).toString()+'°C'} />
@@ -224,4 +226,4 @@ const weatherList_fourtyeight = selectedapi==='weatherfourtyeightdata' && common
     </div>
   );
 }
-export default Homepage;
+export default DashBoard;

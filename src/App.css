@@ -6,6 +6,14 @@
   min-height: 100vw;
   max-height: auto;
 }
+.App-home{
+  text-align: center;
+  background: linear-gradient(90.41deg, #315b83 1.14%, #041c2c57 100%);
+  width:100vw;
+  /* height: 100vw; */
+  min-height: 100vw;
+  max-height: auto;
+}
 .App-header {
   background: linear-gradient(90.41deg, #313030 1.14%, #222222 100%);
   height: 2vh;
@@ -35,6 +43,7 @@
 }
 header{
   padding: 30px;
+  
 }
 button {
   border: none;
@@ -73,12 +82,27 @@ button:hover{
     transform: scale(1,1);
   }
 }
+.rain-pic {
+  width: 100px;
+  height: 100px;
+  animation: iconanimation 3s infinite;
+}
+
+@keyframes iconanimation {
+  from {
+    transform: scale(0.5,0.5);
+  }
+  to {
+    transform: scale(1,1);
+  }
+}
 .table-container{
   margin-left: auto;
   margin-right: auto;
 }
 .main-thirty{
-  margin: 5px;
+  margin: 120px;
+  margin-left: -100px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   text-align:center;
   padding: 20px 10px;
@@ -95,11 +119,12 @@ button:hover{
 .card-container{
   display: flex;
   flex-wrap: wrap;
-  margin-left: 100px;
+  margin-left: 320px;
 }
 .heading{
   margin-top: -70px;
   margin-bottom: -10px;
+  margin-left: 500px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .text{
@@ -175,7 +200,7 @@ input[type=email]{
   text-align:center;
   margin-left: 10px;
   padding: 20px 10px;
-  margin-top: 5px;
+  margin-top: 155px;
   display: inline-block;
   border-radius: 1rem;
   height:400px;
@@ -193,8 +218,12 @@ input[type=email]{
   background: linear-gradient(90.41deg, #c1bfc2 1.14%, #eadeee 100%);
 }
 .header{
-  margin-top: 105px;
+  margin-top: 50px;
   font-size: 40px;
+}
+.header-D{
+  width:200px;
+  margin-top:-80px ;
 }
 .button-header2{
   width: 200px;
@@ -202,4 +231,33 @@ input[type=email]{
   margin-left: 210px;
   color: rgb(253, 253, 253);
   background: linear-gradient(90.41deg, #c1bfc2 1.14%, #eadeee 100%);
+}
+.button-home{
+  width: 200px;
+  margin-top: 80px;
+  margin-left: 10px;
+  color: rgb(252, 252, 252);
+  background: linear-gradient(90.41deg, #e0b37f 1.14%, #d64f10 100%);
+}
+.button-home2{
+  width: 200px;
+  margin-top: -150px;
+  margin-left: 350px;
+  color: rgb(250, 250, 250);
+  background: linear-gradient(90.41deg,  #e0b37f 1.14%, #d64f10 100%);
+}
+.home-content{
+  margin-top: 30px;
+  margin-left: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.instructions{
+  background: linear-gradient(90.41deg, #000000 1.14%, #807880 100%);
+  color: rgb(3, 30, 54);
+  margin-top: 50px;
+  color: white;
+}
+.home-pic{
+  margin-top: 30px;
+  padding:5px ;
 }

@@ -50,5 +50,4 @@ router.post('/login',async (req,res)=>{
         return res.json({status:'error',user:false ,message:'Login Credentials are wrong'})
     }
 })
-
 module.exports=router
