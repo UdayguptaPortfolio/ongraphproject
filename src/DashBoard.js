@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import './App.css';
 import {currentweather,sevendayweather,fourtyeighthours,fivedayweather} from './openweather';
 import GoogleMapIntegration from './GoogleMapIntegration';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Axios  from 'axios';
 
 
@@ -14,7 +14,8 @@ const [city, setCity] = useState('');
 const[errorMessage,setErrorMessage]=useState('')
 const [selectedapi,setSelectedApi]=useState('')
 const[commonResponseData,setCommonResponseData]=useState('')
-
+const cityArray=[];
+const navigate = useNavigate();
 
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
@@ -31,8 +32,9 @@ const getCurrentData = async () => {
         setTemp(data.main.temp)
         setCommonResponseData(data)
         setSelectedApi("weatherdata")
+        cityArray.push(city)
       Axios.post('http://localhost:4000/app/city',{
-        cityname:city,
+        cityname:cityArray,
         email:localStorage.getItem("email")
       }).then((res)=>{
         console.log(res)
@@ -42,7 +44,6 @@ const getCurrentData = async () => {
       console.log(error.message);
     }
   }
-  console.log("My API:",selectedapi)
 
   //Get Data for 5 days in 3hours time frame
 const getfiveData=async()=>{
@@ -193,14 +194,18 @@ const weatherList_fourtyeight = selectedapi==='weatherfourtyeightdata' && common
             </div>
   </div>
 ))
-
+const logout=()=>{
+  setSelectedApi(null)
+  localStorage.setItem("email",null)
+  navigate('/Home');
+}
   return (
     <div className="App">
       <header className="App-header">
        <h2 className='header'> Weather-Finder App</h2> 
-       <h3 className='header-D'>Hello,</h3>
-        {/* <button className='button-header'><Link to='/Signin'>Login</Link></button>
-        <button className='button-header2'><Link to='/Register'>Register</Link></button> */}
+       {/* <h3 className='header-D'>Hello,</h3> */}
+        <button className='button-header-D' onClick={()=>logout()}>LogOut</button>
+        {/* <button className='button-header2'><Link to='/Register'>Register</Link></button> */}
         </header>
           <br/>
           <GoogleMapIntegration lat={lat} lng={lon} temp={(temp- 273.15).toFixed(1).toString()+'°C'} />

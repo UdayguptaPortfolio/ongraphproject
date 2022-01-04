@@ -22,21 +22,19 @@ router.post('/signup',async(req,res)=>{
         res.json(error)
     })
 })
- 
-router.post('/city',async(req,res)=>{
-    const city=await new cityTempelateCopy({
-        cityname:req.body.cityname,
-        email:req.body.email
-    })
-    city.save()
-    .then(
-        res.json({message:'City Name added Successfully'})
-    ).catch(error=>{
-        res.json({message:'City Name wrong'})
-    })
+router.post('/city',async (req,res)=>{
+    try {
+        const city=await cityTempelateCopy.findOneAndUpdate({
+            email:req.body.email
+        }, {
+            $addToSet: {
+                cityname: req.body.cityname
+            }
+        }, { upsert: true });
+        } catch (err) {
+        console.log(err);
+        }
 })
-
-
 router.post('/login',async (req,res)=>{
     const user = await signUpTempelateCopy.findOne({
         UserName:req.body.UserName,
@@ -50,4 +48,6 @@ router.post('/login',async (req,res)=>{
         return res.json({status:'error',user:false ,message:'Login Credentials are wrong'})
     }
 })
+
+
 module.exports=router

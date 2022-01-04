@@ -15,6 +15,7 @@ function App() {
                 <Route path ='/Signin' element = {<Signin/>} />
                 <Route path ='/Register' element = {<Register/>} />
                 <Route path='/DashBoard' element={<DashBoard/>}/>
+                <Route path='/Home' element={<Home/>}/>
             </Routes>
         </BrowserRouter>
 

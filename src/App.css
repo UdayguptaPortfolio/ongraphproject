@@ -43,7 +43,6 @@
 }
 header{
   padding: 30px;
-  
 }
 button {
   border: none;
@@ -218,8 +217,17 @@ input[type=email]{
   background: linear-gradient(90.41deg, #c1bfc2 1.14%, #eadeee 100%);
 }
 .header{
-  margin-top: 50px;
+  margin-top: 100px;
   font-size: 40px;
+}
+/* .header-D{
+  width:200px;
+  margin-top:-120px ;
+} */
+.button-header-D{
+  width:200px;
+  margin-top: -80px;
+  margin-left: auto;
 }
 .header-signin{
   margin-top: 100px;
@@ -237,10 +245,6 @@ input[type=email]{
   margin-left: 50px;
   color: rgb(253, 253, 253);
   background: linear-gradient(90.41deg, #c1bfc2 1.14%, #eadeee 100%);
-}
-.header-D{
-  width:200px;
-  margin-top:-80px ;
 }
 .button-header2{
   width: 200px;

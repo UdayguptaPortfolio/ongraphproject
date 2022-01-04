@@ -19,10 +19,16 @@ const login=()=>{
         console.log(res)
         if(res.data.message)
         {
-            console.log(res)
+            //console.log(res)
             localStorage.setItem("email",email);
             setLoginStatus(res.data.message)
+            if(res.data.status==='ok')
+            {
                 navigate('/DashBoard');
+            }else{
+                setLoginStatus(res.data.message)   
+            }
+                
         }
         else{
             setLoginStatus('All Fields are Mandatory!!!')

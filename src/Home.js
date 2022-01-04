@@ -8,11 +8,11 @@ return (
     <header className="App-header">
      <h2 className='header-home'> Weather-Finder App</h2> 
       </header><div className="home-pic"><img src='rain.png' alt="rain pic" className="rain-pic"/>
-      <img src='night.png' alt="rain pic" className="rain-pic"/>
-      <img src="cloud.png" className="rain-pic"/>
-      <img src="cloudlightning.png" className="rain-pic"/>
-      <img src="partly-cloudy-day.png" className="rain-pic"/>
-      <img src="moon.png" className="rain-pic"/></div>
+      <img src='night.png' alt="night pic" className="rain-pic"/>
+      <img src="cloud.png" className="rain-pic" alt=""/>
+      <img src="cloudlightning.png" className="rain-pic"alt=""/>
+      <img src="partly-cloudy-day.png" className="rain-pic" alt=""/>
+      <img src="moon.png" className="rain-pic" alt=""/></div>
       <h1 className="home-content">Hello,Welcome!!!</h1>
       <h2 className="instructions">If You Are An Existing User then Please Click On Login....<br/>
       Otherwise Please Register Yourself By Clicking on Register Button</h2>
