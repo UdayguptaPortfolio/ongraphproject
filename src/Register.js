@@ -10,7 +10,7 @@ function Register(){
     const[emailReg,setEmailReg]=useState('')
 
     const register=()=>{
-        Axios.post('http://localhost:4000/app/signup',{
+        Axios.post('https://weather-backend-app.herokuapp.com/app/signup',{
             UserName:usernameReg,
             email:emailReg,
             Password:passwordReg,

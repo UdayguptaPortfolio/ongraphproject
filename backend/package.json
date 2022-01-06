@@ -4,7 +4,8 @@
   "description": "SignUp",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "devStart":"nodemon server.js"
   },
   "author": "Uday",
   "license": "ISC",
