@@ -36,11 +36,11 @@ router.post('/city',async (req,res)=>{
         console.log(err);
         }
 })
-router.post('/most',(req,res)=>{
-    const mostSearch=new mostCityTempelateCopy({
+router.post('/most',async(req,res)=>{
+    const mostSearch=await mostCityTempelateCopy.findOneAndUpdate({
         cityname:req.body.cityname,
-        count:req.body.count
-    })
+        count:count+1
+    },{ upsert: true });
     mostSearch.save()
     .then(
         res.json({message:'You are Successfully Added City',user:true})
