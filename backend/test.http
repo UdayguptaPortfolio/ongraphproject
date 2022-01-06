@@ -1,7 +1,7 @@
-POST http://localhost:4000/app/login
+POST http://localhost:4000/app/most
 Content-Type: application/json
 
 {
-    "UserName":"Uday",
-    "Password":"Uday123"
+    "cityname":"Noida",
+    "count":1
 }
