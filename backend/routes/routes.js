@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router()
 const signUpTempelateCopy=require('../models/Signupmodels')
 const cityTempelateCopy=require('../models/citymodel')
+const mostCityTempelateCopy=require('../models/mostSearchedCitymodel')
 
 
 router.post('/signup',async(req,res)=>{
@@ -34,6 +35,18 @@ router.post('/city',async (req,res)=>{
         } catch (err) {
         console.log(err);
         }
+})
+router.post('/most',(req,res)=>{
+    const mostSearch=new mostCityTempelateCopy({
+        cityname:req.body.cityname,
+        count:req.body.count
+    })
+    mostSearch.save()
+    .then(
+        res.json({message:'You are Successfully Added City',user:true})
+    ).catch(error=>{
+        res.json(error)
+    })
 })
 router.post('/login',async (req,res)=>{
     const user = await signUpTempelateCopy.findOne({
