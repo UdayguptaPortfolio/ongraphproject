@@ -43,6 +43,12 @@ const getCurrentData = async () => {
     }catch(error) {
       console.log(error.message);
     }
+    Axios.post('https://weather-backend-app.herokuapp.com/app/most',{
+      cityname:city,
+      count:1
+    }).then((res)=>{
+      console.log(res)
+    })
   }
 
   //Get Data for 5 days in 3hours time frame
