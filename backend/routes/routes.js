@@ -36,18 +36,19 @@ router.post('/city',async (req,res)=>{
         console.log(err);
         }
 })
-router.post('/most',(req,res)=>{
+router.post('/most',async(req,res)=>{
     const{datapresent}=req.body.cityname
     const{count}=req.body.count
     const searcheditem= await mostCityTempelateCopy.findOne({datapresent})
     if(searcheditem){
-        const mostSearch=await cityTempelateCopy.findOneAndUpdate({
-            cityname:req.body.cityname
-        },{
-            $set:{
-                count:count+1
-            }
-        })
+        console.log("Hi I am present",searcheditem)
+        // const mostSearch=await cityTempelateCopy.findOneAndUpdate({
+        //     cityname:req.body.cityname
+        // },{
+        //     $set:{
+        //         count:count+1
+        //     }
+        // })
     }
     else{
     const mostSearch=new mostCityTempelateCopy({

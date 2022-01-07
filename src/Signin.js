@@ -9,9 +9,10 @@ function Signin(){
     const[password,setPassword]=useState('')
     const[email,setEmail]=useState('')
     const[loginStatus,setLoginStatus]=useState('')
+    const headers={"Access-Control-Allow-Headers": "*"}
 
 const login=()=>{
-    Axios.post('https://weather-backend-app.herokuapp.com/app/login',{
+    Axios.post('https://weather-backend-app.herokuapp.com/app/login', {headers:headers},{
         UserName:username,
         email:email,
         Password:password,

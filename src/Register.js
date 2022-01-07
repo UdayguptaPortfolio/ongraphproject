@@ -8,9 +8,10 @@ function Register(){
     const[passwordReg,setPasswordReg]=useState('')
     const[registerstatus,setRegisterStatus]=useState('')
     const[emailReg,setEmailReg]=useState('')
+    const headers={"Access-Control-Allow-Headers": "*"}
 
     const register=()=>{
-        Axios.post('https://weather-backend-app.herokuapp.com/app/signup',{
+        Axios.post('https://weather-backend-app.herokuapp.com/app/signup',{headers:headers},{
             UserName:usernameReg,
             email:emailReg,
             Password:passwordReg,

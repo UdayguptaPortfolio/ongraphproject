@@ -16,6 +16,7 @@ const [selectedapi,setSelectedApi]=useState('')
 const[commonResponseData,setCommonResponseData]=useState('')
 const cityArray=[];
 const navigate = useNavigate();
+const headers={"Access-Control-Allow-Headers": "*"}
 
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
@@ -33,7 +34,7 @@ const getCurrentData = async () => {
         setCommonResponseData(data)
         setSelectedApi("weatherdata")
         cityArray.push(city)
-      Axios.post('https://weather-backend-app.herokuapp.com/app/city',{
+      Axios.post('https://weather-backend-app.herokuapp.com/app/city', {headers:headers},{
         cityname:cityArray,
         email:localStorage.getItem("email")
       }).then((res)=>{
@@ -43,7 +44,8 @@ const getCurrentData = async () => {
     }catch(error) {
       console.log(error.message);
     }
-    Axios.post('https://weather-backend-app.herokuapp.com/app/most',{
+    Axios.post('https://weather-backend-app.herokuapp.com/app/most',
+    {headers:headers},{
       cityname:city,
       count:1
     }).then((res)=>{
