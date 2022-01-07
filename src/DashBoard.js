@@ -44,11 +44,11 @@ const getCurrentData = async () => {
     }catch(error) {
       console.log(error.message);
     }
+    console.log("My city",city)
     Axios.post('https://weather-backend-app.herokuapp.com/app/most',
-    {headers:headers},{
+    {headers:headers,
       cityname:city,
-      count:1
-    }).then((res)=>{
+      count:1}).then((res)=>{
       console.log("Hello",res)
     })
   }
