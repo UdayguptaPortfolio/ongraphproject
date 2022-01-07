@@ -37,9 +37,22 @@ router.post('/city',async (req,res)=>{
         }
 })
 router.post('/most',(req,res)=>{
+    const{datapresent}=req.body.cityname
+    const{count}=req.body.count
+    const searcheditem= await mostCityTempelateCopy.findOne({datapresent})
+    if(searcheditem){
+        const mostSearch=await cityTempelateCopy.findOneAndUpdate({
+            cityname:req.body.cityname
+        },{
+            $set:{
+                count:count+1
+            }
+        })
+    }
+    else{
     const mostSearch=new mostCityTempelateCopy({
         cityname:req.body.cityname,
-        count:req.body.count
+        count:1
     })
     mostSearch.save()
     .then(
@@ -47,6 +60,7 @@ router.post('/most',(req,res)=>{
     ).catch(error=>{
         res.json(error)
     })
+}
 })
 router.post('/login',async (req,res)=>{
     const user = await signUpTempelateCopy.findOne({
@@ -65,24 +79,3 @@ router.post('/login',async (req,res)=>{
 
 module.exports=router
 
-// const{datapresent}=req.body.cityname
-//     const{count}=req.body.count
-//     const searcheditem= await mostCityTempelateCopy.findOne({datapresent})
-//     if(searcheditem){
-//         const mostSearch=new cityTempelateCopy({
-//             cityname:req.body.cityname,
-//             count:count+1
-//         })
-//     }
-//     else{
-//     const mostSearch=new mostCityTempelateCopy({
-//         cityname:req.body.cityname,
-//         count:1
-//     })
-//     mostSearch.save()
-//     .then(
-//         res.json({message:'You are Successfully Added City',user:true})
-//     ).catch(error=>{
-//         res.json(error)
-//     })
-// }
