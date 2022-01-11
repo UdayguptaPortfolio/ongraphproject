@@ -4,13 +4,13 @@ const dotenv=require('dotenv')
 const mongoose=require('mongoose')
 const routesUrls=require('./routes/routes')
 const cors=require('cors')
+const City=require('../backend/models/mostSearchedCitymodel')
 
 dotenv.config()
 
-mongoose.connect(process.env.DATABASE_ACCESS,()=>console.log("Database Connected"))
-app.get('/hello',function(req,res){
-    res.send("Working");
-})
+mongoose.connect(process.env.DATABASE_ACCESS,()=>{console.log("Database Connected")})
+
+
 app.use(express.json())
 app.use(cors())
 app.use('/app',routesUrls)

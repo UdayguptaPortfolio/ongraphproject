@@ -38,7 +38,7 @@ const getCurrentData = async () => {
         cityname:cityArray,
         email:localStorage.getItem("email")
       }).then((res)=>{
-        console.log(res)
+        console.log("City Added to Array",res)
       })
     }
     }catch(error) {
@@ -48,6 +48,7 @@ const getCurrentData = async () => {
     Axios.post('https://weather-backend-app.herokuapp.com/app/most',
     {headers:headers,
       cityname:city,
+      email:localStorage.getItem("email"),
       count:1}).then((res)=>{
       console.log("Hello",res)
     })
@@ -112,6 +113,14 @@ const getfourtyeightData=async()=>{
 }
 const escape=()=>{
 setSelectedApi(null)
+}
+const mostSearchedCityData=async()=>{
+Axios.get('http://localhost:4000/app/data').then(async(res)=>{
+  console.log("My Data",res.data)
+  const data = await currentweather(res.data);
+  setCommonResponseData(data)
+  setSelectedApi("weatherdata")
+})
 }
 
 const currentweather_List=selectedapi==='weatherdata' && commonResponseData?
@@ -211,9 +220,7 @@ const logout=()=>{
     <div className="App">
       <header className="App-header">
        <h2 className='header'> Weather-Finder App</h2> 
-       {/* <h3 className='header-D'>Hello,</h3> */}
         <button className='button-header-D' onClick={()=>logout()}>LogOut</button>
-        {/* <button className='button-header2'><Link to='/Register'>Register</Link></button> */}
         </header>
           <br/>
           <GoogleMapIntegration lat={lat} lng={lon} temp={(temp- 273.15).toFixed(1).toString()+'°C'} />
@@ -225,6 +232,7 @@ const logout=()=>{
         <button type="button" onClick={() => getfiveData()}>5 day Weather</button> 
         <button type="button" onClick={() => getsevenData()}>7 day Weather</button>
         <button type="button" onClick={() => getfourtyeightData()}>48 hours Weather</button>
+        <button type="button" onClick={()=>mostSearchedCityData()}>Get Most Searched Cities</button>
         <>
         <br/><br/>  
         <div><h2 className='Error-message'>{errorMessage}</h2></div>    
