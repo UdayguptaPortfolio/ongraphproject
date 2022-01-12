@@ -3,26 +3,29 @@ const router=express.Router()
 const signUpTempelateCopy=require('../models/Signupmodels')
 const cityTempelateCopy=require('../models/citymodel')
 const mostCityTempelateCopy=require('../models/mostSearchedCitymodel')
-const City=require('../models/mostSearchedCitymodel')
 
 
 router.post('/signup',async(req,res)=>{
-    const {email} = req.body;
-    const oldUser = await signUpTempelateCopy.findOne({ email });
-    if(oldUser){
-        res.json({message:"You are already registered"})
-    }
-    const signedUpUser=new signUpTempelateCopy({
-        UserName:req.body.UserName,
-        email:req.body.email,
-        Password:req.body.Password
-    })
-    signedUpUser.save()
-    .then(
+    try{
+        const {email} = req.body;
+        const oldUser = await signUpTempelateCopy.findOne({ email });
+        if(oldUser){
+            res.json({message:"You are already registered"})
+        }
+        else{
+        const signedUpUser=new signUpTempelateCopy({
+            UserName:req.body.UserName,
+            email:req.body.email,
+            Password:req.body.Password
+        })
+        signedUpUser.save()
         res.json({message:'You are Successfully Registered',user:true})
-    ).catch(error=>{
-        res.json(error)
-    })
+    }
+    }
+    catch(err){
+        res.json({message:err})
+    }
+    
 })
 router.post('/city',async (req,res)=>{
     try {
@@ -40,18 +43,25 @@ router.post('/city',async (req,res)=>{
 })
 router.post('/most',async(req,res)=>{
     const searcheditem= await mostCityTempelateCopy.findOne({cityname:req.body.cityname})
-    console.log(searcheditem)
+    console.log("My email->",req.body.email)
     if(searcheditem){
+        console.log("Searched city exist")
         const searchedemail= await mostCityTempelateCopy.findOne({cityname:req.body.cityname,email:req.body.email})
 
         if(searchedemail)
         {
+            console.log("Searched city with email id exist")
             res.json({message:"City and Email id Both exist",user:true})
         }
         else{
+            console.log("Searched city exist without mail id and count increases")
             const mostSearch=await mostCityTempelateCopy.findOneAndUpdate({
                         cityname:req.body.cityname
-                    },{
+                    },
+                    {
+                        $addToSet: {
+                            email: req.body.email
+                        },
                             count:searcheditem.count+1
                     })
                     mostSearch.save();
@@ -59,11 +69,13 @@ router.post('/most',async(req,res)=>{
                 }
         }
     else{
-        const mostSearch=new mostCityTempelateCopy({
+        console.log("I am adding New City Data")
+        const mostSearch=await new mostCityTempelateCopy({
                 cityname:req.body.cityname,
-                email:req.body.email,
+                    email:[req.body.email],
                 count:1
             })
+            mostSearch.save();
             res.json({message:"New City Added",user:true})
     }
 })
@@ -82,24 +94,18 @@ router.post('/login',async (req,res)=>{
 })
 
 router.get('/data',async(req,res)=>{
-    // City.find({count: { $gt: 2 }},function(err,users){
-    //     if(err) console.log(err)
-    //     res.send(users.cityname)
-    //     console.log(users.cityname)
-    // })
-    
-const mostSearchData = await City.aggregate([
+const mostSearchData = await mostCityTempelateCopy.aggregate([
         {
             $group: {
                 _id: "$cityname",
-                total: {
+                count: {
                     $sum: 1 
                 }
             }
         },
         {
             $sort: { 
-                total: -1
+                count: -1
             }
         },
         {
@@ -109,31 +115,7 @@ const mostSearchData = await City.aggregate([
         const mostSearchedcityName = result[0]._id;
         console.log(mostSearchedcityName)
         res.send(mostSearchedcityName)
-        // res.json({
-        //     status: 'success',
-        //     data: result[0]
-        // })
-       
     })
 })
 
 module.exports=router
-
-// const searcheditem= await mostCityTempelateCopy.findOne({cityname:req.body.cityname,email:req.body.email})
-// console.log(searcheditem)
-// if(searcheditem){
-//     console.log("Hi I am present",searcheditem)
-//     const mostSearch=await mostCityTempelateCopy.findOneAndUpdate({
-//         cityname:req.body.cityname
-//     },{
-//             count:searcheditem.count+1
-//     })
-//     mostSearch.save();
-//     res.json({message:'Same City Added',user:true,searcheditem:'hi'})
-// }
-// else{
-// const mostSearch=new mostCityTempelateCopy({
-//     cityname:req.body.cityname,
-//     email:req.body.email,
-//     count:1
-// })

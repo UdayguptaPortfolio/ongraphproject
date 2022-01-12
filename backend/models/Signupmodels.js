@@ -3,7 +3,6 @@ const mongoose=require('mongoose');
 const signUpTempelate=new mongoose.Schema({
     UserName:{
         type:String,
-        required:true
     },
     email:{
             type:String,

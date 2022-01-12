@@ -34,7 +34,7 @@ const getCurrentData = async () => {
         setCommonResponseData(data)
         setSelectedApi("weatherdata")
         cityArray.push(city)
-      Axios.post('https://weather-backend-app.herokuapp.com/app/city', {headers:headers},{
+      Axios.post('http://localhost:4000/app/city',{
         cityname:cityArray,
         email:localStorage.getItem("email")
       }).then((res)=>{
@@ -45,12 +45,12 @@ const getCurrentData = async () => {
       console.log(error.message);
     }
     console.log("My city",city)
-    Axios.post('https://weather-backend-app.herokuapp.com/app/most',
-    {headers:headers,
+    Axios.post('http://localhost:4000/app/most',
+    {
       cityname:city,
       email:localStorage.getItem("email"),
       count:1}).then((res)=>{
-      console.log("Hello",res)
+      console.log("Frontend Email:",localStorage.getItem("email"))
     })
   }
 

@@ -8,7 +8,7 @@ const mostCityTempelate=new mongoose.Schema({
         type:Number
     },
     email:{
-        type:String
+        type:[String]
     }
 })
 module.exports=mongoose.model('most_searched_city_details',mostCityTempelate)

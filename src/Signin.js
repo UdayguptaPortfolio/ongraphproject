@@ -12,12 +12,11 @@ function Signin(){
     const headers={"Access-Control-Allow-Headers": "*"}
 
 const login=()=>{
-    Axios.post('https://weather-backend-app.herokuapp.com/app/login',{
+    Axios.post('http://localhost:4000/app/login',{
         UserName:username,
         email:email,
         Password:password,
     }).then((res)=>{
-        console.log(res)
         if(res.data.message)
         {
             //console.log(res)

@@ -11,11 +11,12 @@ function Register(){
     const headers={"Access-Control-Allow-Headers": "*"}
 
     const register=()=>{
-        Axios.post('https://weather-backend-app.herokuapp.com/app/signup',{headers:headers},{
+        Axios.post('http://localhost:4000/app/signup',{
             UserName:usernameReg,
             email:emailReg,
             Password:passwordReg,
         }).then((res)=>{
+            
             if(res.data)
             {
                 setRegisterStatus(res.data.message)
