@@ -12,31 +12,26 @@ const[lon,setLon]=useState(78.9629)
 const[temp,setTemp]=useState('')
 const [city, setCity] = useState('');
 const[errorMessage,setErrorMessage]=useState('')
-const [selectedapi,setSelectedApi]=useState('')
-const[commonResponseData,setCommonResponseData]=useState('')
-const[minTemp,setMinTemp]=useState('')
-const[maxTemp,setMaxTemp]=useState('')
 const cityArray=[];
 const navigate = useNavigate();
 const headers={"Access-Control-Allow-Headers": "*"}
-
+const [switchData,setSwitchData]=useState([])
   //Get Data for Current Live Weather
 const getCurrentData = async () => {
     try{
       if(city===''||city===null)
       {
         setErrorMessage('Please Enter City Name........');
-        setSelectedApi(null)
+        setSwitchData([null,null])
       }
       else{
+        setErrorMessage(null);
         const data = await currentweather(city);
+        console.log("Data Consoling:",data)
         setLat(data.coord.lat)
         setLon(data.coord.lon)
         setTemp(data.main.temp)
-        setCommonResponseData(data)
-        setSelectedApi("weatherdata")
-        setMinTemp(data.main.temp_min)
-        setMaxTemp(data.main.temp_max)
+        setSwitchData(["weatherdata",data])
         cityArray.push(city)
       Axios.post('http://localhost:4000/app/city',{
         cityname:cityArray,
@@ -68,14 +63,13 @@ const getfiveData=async()=>{
     if(city===''||city===null)
       {
       setErrorMessage('Please Enter City Name........');
-     setSelectedApi(null)
+     setSwitchData([null,null])
       }
       else{
-        setSelectedApi(null)
+        setErrorMessage(null);
         console.log("I am inside fiveDay Weather",city)
     const data_five=await fivedayweather(city);
-    setCommonResponseData(data_five);
-    setSelectedApi("weatherfivedata")
+    setSwitchData(["weatherfivedata",data_five])
       }
   }catch(error)
   {
@@ -88,13 +82,12 @@ const getsevenData=async()=>{
     if(city===''||city===null)
     {
       setErrorMessage('Please Enter City Name........');
-      setSelectedApi(null)
+      setSwitchData([null,null])
     }
       else{
-        setSelectedApi(null)
+        setErrorMessage(null);
     const data_seven=await sevendayweather(lat,lon);
-    setCommonResponseData(data_seven)
-    setSelectedApi("weathersevendata")
+    setSwitchData(["weathersevendata",data_seven])
       }
   }catch(error)
   {
@@ -106,13 +99,12 @@ const getfourtyeightData=async()=>{
   try{
     if(city===''||city===null){
       setErrorMessage('Please Enter City Name........');
-      setSelectedApi(null)
+      setSwitchData([null,null])
     }
       else{
-        setSelectedApi(null)
+        setErrorMessage(null);
     const data_fourtyeight=await fourtyeighthours(lat,lon);
-    setCommonResponseData(data_fourtyeight)
-    setSelectedApi("weatherfourtyeightdata")
+    setSwitchData(["weatherfourtyeightdata",data_fourtyeight])
       }
   }catch(error)
   {
@@ -120,74 +112,78 @@ const getfourtyeightData=async()=>{
   }
 }
 const escape=()=>{
-setSelectedApi(null)
+  setSwitchData([null,null])
 }
+
 const mostSearchedCityData=async()=>{
 Axios.get('http://localhost:4000/app/data').then(async(res)=>{
   console.log("My Data",res.data)
- const data = await currentweather(res.data);
-  setCommonResponseData(res.data)
-  setSelectedApi("weatherdata")
+  setSwitchData(["mostSearchedCity",res.data])
 })
 }
 
 const searchedCityMinTempData=()=>{
   Axios.get('http://localhost:4000/app/min_temp').then(async(res)=>{
     console.log("My Minimum Temp Data",res.data)
-    //setSelectedApi("minTempCity")
-    //setCommonResponseData(res.data)
+    setSwitchData(["minTempCity",res.data])
   })
 }
 
 const searchedCityMaxTempData=()=>{
   Axios.get('http://localhost:4000/app/max_temp').then(async(res)=>{
     console.log("My Maximum Temp Data",res.data)
-    //setSelectedApi("maxTempCity")
-    //setCommonResponseData(res.data)
+    setSwitchData(["maxTempCity",res.data])
   })
 }
-// const minTemp_City=selectedapi==='minTempCity' && commonResponseData?
-// <div className='card-container'>
-// <div className="main">
-// <p>The Searched City with Minimum Temperature:{commonResponseData}</p>
-// </div>
-// </div>:null
+const mostSearched_City=switchData[0]==='mostSearchedCity' && switchData[1]?
+<div className='card-container'>
+<div className="main">
+<p>Most Searched City is:<b>{switchData[1]}</b></p>
+</div>
+</div>:null
 
-// const maxTemp_City=selectedapi==='maxTempCity' && commonResponseData?
-// <div className='card-container'>
-// <div className="main">
-// <p>The Searched City with Maximum Temperature:{commonResponseData}</p>
-// </div>
-// </div>:null
+const minTemp_City=switchData[0]==='minTempCity' && switchData[1]?
+<div className='card-container'>
+<div className="main">
+<p>The Searched City with Minimum Temperature:<b>{switchData[1]}</b></p>
+</div>
+</div>:null
 
-const currentweather_List=selectedapi==='weatherdata' && commonResponseData?
+const maxTemp_City=switchData[0]==='maxTempCity' && switchData[1]?
+<div className='card-container'>
+<div className="main">
+<p>The Searched City with Maximum Temperature:<b>{switchData[1]}</b></p>
+</div>
+</div>:null
+
+const currentweather_List=switchData[0]==='weatherdata' && switchData[1]?
 <div>
   {/* <h2 className='heading'>Current Weather Condition</h2><br/> */}
 <div className='card-container'>
 <div className="main"
 onClick={escape}>
-<b>Date:<i> {new Date(commonResponseData.dt*1000).toDateString() } </i></b>
+<b>Date:<i> {new Date(switchData[1].dt*1000).toDateString() } </i></b>
 <div className="weather-icon">
-<img src={`http://openweathermap.org/img/w/${commonResponseData.weather[0].icon}.png`} alt="imgicon"/>
+<img src={`http://openweathermap.org/img/w/${switchData[1].weather[0].icon}.png`} alt="imgicon"/>
 </div>
-<h3>{commonResponseData.weather[0].main}</h3>
+<h3>{switchData[1].weather[0].main}</h3>
 <div className="temperature">
-<h1>{parseFloat(commonResponseData.main.temp - 273.15).toFixed(1)}&deg;C</h1>
+<h1>{parseFloat(switchData[1].main.temp - 273.15).toFixed(1)}&deg;C</h1>
 </div>
 <div className="location">
-<h3><i></i>{commonResponseData.name} | {commonResponseData.sys.country}</h3>
+<h3><i></i>{switchData[1].name} | {switchData[1].sys.country}</h3>
 </div>
 <div className="temperature-range">
-<h5>Minimum: {parseFloat(commonResponseData.main.temp_min - 273.15).toFixed(1)}&deg;C 
-|| Maximum: {parseFloat(commonResponseData.main.temp_max - 273.15).toFixed(1)}&deg;C 
-|| Humidity: {commonResponseData.main.humidity}%</h5>
+<h5>Minimum: {parseFloat(switchData[1].main.temp_min - 273.15).toFixed(1)}&deg;C 
+|| Maximum: {parseFloat(switchData[1].main.temp_max - 273.15).toFixed(1)}&deg;C 
+|| Humidity: {switchData[1].main.humidity}%</h5>
 </div>
 </div>
 </div>
 </div>
 :null
 
-const weatherList_five = selectedapi==='weatherfivedata' && commonResponseData?.list?.map((el)=>(
+const weatherList_five = switchData[0]==='weatherfivedata' && switchData[1]?.list?.map((el)=>(
   <div>
        <div className="main-thirty">
        <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
@@ -206,7 +202,7 @@ const weatherList_five = selectedapi==='weatherfivedata' && commonResponseData?.
             </div>
   </div>
 ))
-const weatherList_seven = selectedapi==='weathersevendata' && commonResponseData?.daily?.map((el)=>(
+const weatherList_seven = switchData[0]==='weathersevendata' && switchData[1]?.daily?.map((el)=>(
   <div>
 
        <div className="main-thirty">
@@ -227,7 +223,7 @@ const weatherList_seven = selectedapi==='weathersevendata' && commonResponseData
             </div>
   </div>
 ))
-const weatherList_fourtyeight = selectedapi==='weatherfourtyeightdata' && commonResponseData?.hourly?.map((el)=>(
+const weatherList_fourtyeight = switchData[0]==='weatherfourtyeightdata' && switchData[1]?.hourly?.map((el)=>(
   <div>
        <div className="main-thirty">
        <i> {new Date(el.dt*1000).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) } </i><br/>
@@ -249,7 +245,7 @@ const weatherList_fourtyeight = selectedapi==='weatherfourtyeightdata' && common
   </div>
 ))
 const logout=()=>{
-  setSelectedApi(null)
+  setSwitchData([null,null])
   localStorage.setItem("email",null)
   navigate('/Home');
 }
@@ -277,12 +273,13 @@ const logout=()=>{
         <div><h2 className='Error-message'>{errorMessage}</h2></div>    
           </>
           </div>
-                <div className='card-container'>{selectedapi==='weatherdata' && currentweather_List}</div>
-            <div className='card-container'>{selectedapi==='weatherfivedata' && weatherList_five}</div>
-          <div className='card-container'> {selectedapi==='weathersevendata' && weatherList_seven}</div>
-          <div className='card-container'>{selectedapi==='weatherfourtyeightdata' && weatherList_fourtyeight}</div>
-          {/* <div className='card-container'>{selectedapi==='minTempCity' && minTemp_City}</div>
-          <div className='card-container'>{selectedapi==='maxTempCity' && maxTemp_City}</div> */}
+                <div className='card-container'>{switchData[0]==='weatherdata' && currentweather_List}</div>
+            <div className='card-container'>{switchData[0]==='weatherfivedata' && weatherList_five}</div>
+          <div className='card-container'> {switchData[0]==='weathersevendata' && weatherList_seven}</div>
+          <div className='card-container'>{switchData[0]==='weatherfourtyeightdata' && weatherList_fourtyeight}</div>
+          <div className='card-container'>{switchData[0]==='mostSearchedCity' && mostSearched_City}</div>
+          <div className='card-container'>{switchData[0]==='minTempCity' && minTemp_City}</div>
+          <div className='card-container'>{switchData[0]==='maxTempCity' && maxTemp_City}</div>
           <div> 
            </div>
     </div>
