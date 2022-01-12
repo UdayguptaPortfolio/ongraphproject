@@ -54,7 +54,7 @@ router.post('/most',async(req,res)=>{
             res.json({message:"City and Email id Both exist",user:true})
         }
         else{
-            console.log("Searched city exist without mail id and count increases")
+            console.log("Searched city exist without mail id and count increases",req.body.min_temp,req.body.max_temp)
             const mostSearch=await mostCityTempelateCopy.findOneAndUpdate({
                         cityname:req.body.cityname
                     },
@@ -69,11 +69,13 @@ router.post('/most',async(req,res)=>{
                 }
         }
     else{
-        console.log("I am adding New City Data")
+        console.log("I am adding New City Data",req.body.min_temp,req.body.max_temp)
         const mostSearch=await new mostCityTempelateCopy({
                 cityname:req.body.cityname,
                     email:[req.body.email],
-                count:1
+                count:1,
+                min_temp:req.body.min_temp,
+                max_temp:req.body.max_temp
             })
             mostSearch.save();
             res.json({message:"New City Added",user:true})
@@ -99,7 +101,7 @@ const mostSearchData = await mostCityTempelateCopy.aggregate([
             $group: {
                 _id: "$cityname",
                 count: {
-                    $sum: 1 
+                    $max: "$count" 
                 }
             }
         },
@@ -117,5 +119,56 @@ const mostSearchData = await mostCityTempelateCopy.aggregate([
         res.send(mostSearchedcityName)
     })
 })
+
+router.get('/min_temp',async(req,res)=>{
+    const cityWithMinTemp = await mostCityTempelateCopy.aggregate([
+            {
+                $group: {
+                    _id: "$cityname",
+                    min_temp: {
+                        $min: "$min_temp" 
+                    }
+                }
+            },
+            {
+                $sort: { 
+                    min_temp: 1
+                }
+            },
+            {
+                $limit: 1
+            }
+        ]).then(result => {
+            const cityNameMinTemp = result[0]._id;
+            console.log(cityNameMinTemp)
+            res.send(cityNameMinTemp)
+        })
+    })
+
+router.get('/max_temp',async(req,res)=>{
+        const cityWithMaxTemp = await mostCityTempelateCopy.aggregate([
+                {
+                    $group: {
+                        _id: "$cityname",
+                        max_temp: {
+                            $max: "$max_temp" 
+                        }
+                    }
+                },
+                {
+                    $sort: { 
+                        max_temp: -1
+                    }
+                },
+                {
+                    $limit: 1
+                }
+            ]).then(result => {
+                const cityNameMaxTemp = result[0]._id;
+                console.log(cityNameMaxTemp)
+                res.send(cityNameMaxTemp)
+            })
+        })
+        
 
 module.exports=router

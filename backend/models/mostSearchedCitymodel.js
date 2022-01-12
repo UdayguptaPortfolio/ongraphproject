@@ -9,6 +9,12 @@ const mostCityTempelate=new mongoose.Schema({
     },
     email:{
         type:[String]
+    },
+    min_temp:{
+        type:Number
+    },
+    max_temp:{
+        type:Number
     }
 })
 module.exports=mongoose.model('most_searched_city_details',mostCityTempelate)

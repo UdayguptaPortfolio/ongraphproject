@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import './App.css';
 import {currentweather,sevendayweather,fourtyeighthours,fivedayweather} from './openweather';
 import GoogleMapIntegration from './GoogleMapIntegration';
@@ -14,6 +14,8 @@ const [city, setCity] = useState('');
 const[errorMessage,setErrorMessage]=useState('')
 const [selectedapi,setSelectedApi]=useState('')
 const[commonResponseData,setCommonResponseData]=useState('')
+const[minTemp,setMinTemp]=useState('')
+const[maxTemp,setMaxTemp]=useState('')
 const cityArray=[];
 const navigate = useNavigate();
 const headers={"Access-Control-Allow-Headers": "*"}
@@ -33,6 +35,8 @@ const getCurrentData = async () => {
         setTemp(data.main.temp)
         setCommonResponseData(data)
         setSelectedApi("weatherdata")
+        setMinTemp(data.main.temp_min)
+        setMaxTemp(data.main.temp_max)
         cityArray.push(city)
       Axios.post('http://localhost:4000/app/city',{
         cityname:cityArray,
@@ -40,18 +44,22 @@ const getCurrentData = async () => {
       }).then((res)=>{
         console.log("City Added to Array",res)
       })
+      console.log("My city",city)
+      Axios.post('http://localhost:4000/app/most',
+      {
+        cityname:city,
+        email:localStorage.getItem("email"),
+        count:1,
+      min_temp:parseFloat(data.main.temp_min - 273.15).toFixed(1),
+    max_temp:parseFloat(data.main.temp_max - 273.15).toFixed(1)
+  }).then((res)=>{
+        console.log("Frontend Email:",localStorage.getItem("email"))
+      })
     }
     }catch(error) {
       console.log(error.message);
     }
-    console.log("My city",city)
-    Axios.post('http://localhost:4000/app/most',
-    {
-      cityname:city,
-      email:localStorage.getItem("email"),
-      count:1}).then((res)=>{
-      console.log("Frontend Email:",localStorage.getItem("email"))
-    })
+   
   }
 
   //Get Data for 5 days in 3hours time frame
@@ -117,11 +125,40 @@ setSelectedApi(null)
 const mostSearchedCityData=async()=>{
 Axios.get('http://localhost:4000/app/data').then(async(res)=>{
   console.log("My Data",res.data)
-  const data = await currentweather(res.data);
-  setCommonResponseData(data)
+ const data = await currentweather(res.data);
+  setCommonResponseData(res.data)
   setSelectedApi("weatherdata")
 })
 }
+
+const searchedCityMinTempData=()=>{
+  Axios.get('http://localhost:4000/app/min_temp').then(async(res)=>{
+    console.log("My Minimum Temp Data",res.data)
+    //setSelectedApi("minTempCity")
+    //setCommonResponseData(res.data)
+  })
+}
+
+const searchedCityMaxTempData=()=>{
+  Axios.get('http://localhost:4000/app/max_temp').then(async(res)=>{
+    console.log("My Maximum Temp Data",res.data)
+    //setSelectedApi("maxTempCity")
+    //setCommonResponseData(res.data)
+  })
+}
+// const minTemp_City=selectedapi==='minTempCity' && commonResponseData?
+// <div className='card-container'>
+// <div className="main">
+// <p>The Searched City with Minimum Temperature:{commonResponseData}</p>
+// </div>
+// </div>:null
+
+// const maxTemp_City=selectedapi==='maxTempCity' && commonResponseData?
+// <div className='card-container'>
+// <div className="main">
+// <p>The Searched City with Maximum Temperature:{commonResponseData}</p>
+// </div>
+// </div>:null
 
 const currentweather_List=selectedapi==='weatherdata' && commonResponseData?
 <div>
@@ -233,6 +270,8 @@ const logout=()=>{
         <button type="button" onClick={() => getsevenData()}>7 day Weather</button>
         <button type="button" onClick={() => getfourtyeightData()}>48 hours Weather</button>
         <button type="button" onClick={()=>mostSearchedCityData()}>Get Most Searched Cities</button>
+        <button type="button" onClick={()=>searchedCityMinTempData()}>Searched City With Min Temp</button>
+        <button type="button" onClick={()=>searchedCityMaxTempData()}>Searched City With Max Temp</button>
         <>
         <br/><br/>  
         <div><h2 className='Error-message'>{errorMessage}</h2></div>    
@@ -242,6 +281,8 @@ const logout=()=>{
             <div className='card-container'>{selectedapi==='weatherfivedata' && weatherList_five}</div>
           <div className='card-container'> {selectedapi==='weathersevendata' && weatherList_seven}</div>
           <div className='card-container'>{selectedapi==='weatherfourtyeightdata' && weatherList_fourtyeight}</div>
+          {/* <div className='card-container'>{selectedapi==='minTempCity' && minTemp_City}</div>
+          <div className='card-container'>{selectedapi==='maxTempCity' && maxTemp_City}</div> */}
           <div> 
            </div>
     </div>
