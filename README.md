@@ -12,6 +12,7 @@ ScreenShots of Weather-Finder Application--------->
 ![image](https://user-images.githubusercontent.com/95482684/151920472-64125397-bfb9-4cab-ada0-e2b64c197217.png)
 
 In MongoDB:
+
 ![image](https://user-images.githubusercontent.com/95482684/151921890-427a7374-c671-421a-963c-f301b0907d1d.png)
 
 
@@ -29,6 +30,7 @@ In MongoDB:
 
 (9)5-day Weather 
 ![image](https://user-images.githubusercontent.com/95482684/151920925-1b96feef-00b7-4a97-9ca3-7cfe3fc2e28c.png)
+
 and much more cards................
 
 (10)7 day Forecasting.
@@ -48,9 +50,11 @@ In MongoDB:
 ![image](https://user-images.githubusercontent.com/95482684/151921593-0dc21dee-a92b-437c-b63a-5f4f017715c4.png)
 
 (13) Searched City With Maximum Temp:
+
 ![image](https://user-images.githubusercontent.com/95482684/151921652-bfff2098-da75-49b7-aca1-ddf290ec76f8.png)
 
 In MongoDB:
+
 ![image](https://user-images.githubusercontent.com/95482684/151921710-e3493978-d111-48eb-a7f6-277fc4859878.png)
 
 (14) If User Logout:
