@@ -1,4 +1,4 @@
-**ScreenShots of Weather-Finder Application--------->
+# **ScreenShots of Weather-Finder Application--------->
 
 # **(1)HomePage.****
 ![image](https://user-images.githubusercontent.com/95482684/151920197-23f68cb2-bf73-4ee1-ada0-56cf37176c5b.png)
@@ -17,61 +17,61 @@
 ![image](https://user-images.githubusercontent.com/95482684/151921890-427a7374-c671-421a-963c-f301b0907d1d.png)
 
 
-**(5)If User Already Exist.**
+# **(5)If User Already Exist.**
 ![image](https://user-images.githubusercontent.com/95482684/151920577-b368214a-6a69-4c88-abe7-f80cf042234a.png)
 
-**(6)If Login Credentials are not Right.**
+# **(6)If Login Credentials are not Right.**
 ![image](https://user-images.githubusercontent.com/95482684/151920679-d15ae591-cacb-4031-b14c-aa27e8e088e8.png)
 
-**(7)DashBoard**
+# **(7)DashBoard**
 ![image](https://user-images.githubusercontent.com/95482684/151920726-4dbdf6d3-9850-4be9-b770-11f9bcee9ade.png)
 
-**(8)Searched the Current Weather**
+# **(8)Searched the Current Weather**
 ![image](https://user-images.githubusercontent.com/95482684/151920850-f1e39b0b-6e82-4681-bc95-ac252f01994d.png)
 
-**(9)5-day Weather** 
+# **(9)5-day Weather** 
 ![image](https://user-images.githubusercontent.com/95482684/151920925-1b96feef-00b7-4a97-9ca3-7cfe3fc2e28c.png)
 
-and much more cards................
+# and much more cards................
 
-**(10)7 day Forecasting.**
+# **(10)7 day Forecasting.**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921190-9decdc54-3050-484b-9e12-1cfc76429e3d.png)
 
 
-**(11)Most Searched City Name which is most searched in my application,**
+# **(11)Most Searched City Name which is most searched in my application,**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921312-62f16fc4-a245-4e2a-9023-619574698005.png)
 
-**All Searched City data is stored in my MongoDb:**
+# **All Searched City data is stored in my MongoDb:**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921487-21d4340c-81d1-4751-93d9-7ef19cf8351f.png)
 
-**(12) Searched City with Minimum Temp:**
+# **(12) Searched City with Minimum Temp:**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921547-90f5ac9e-65c9-4524-9c23-abc3d3f0ed0a.png)
 
-**In MongoDB:**
+# **In MongoDB:**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921593-0dc21dee-a92b-437c-b63a-5f4f017715c4.png)
 
-**(13) Searched City With Maximum Temp:**
+# **(13) Searched City With Maximum Temp:**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921652-bfff2098-da75-49b7-aca1-ddf290ec76f8.png)
 
-**In MongoDB:**
+# **In MongoDB:**
 
 ![image](https://user-images.githubusercontent.com/95482684/151921710-e3493978-d111-48eb-a7f6-277fc4859878.png)
 
-**(14) If User Logout:**
-GoBack to HomePage--->
+# **(14) If User Logout:**
+# GoBack to HomePage--->
 
 ![image](https://user-images.githubusercontent.com/95482684/151921823-75ac753b-096f-4c66-9e78-f19c30801217.png)
 
 
 
 
-**Video**
+# **Video**
 
 
 https://user-images.githubusercontent.com/95482684/151936401-53c7f243-2a7c-4cf2-8898-c15a6ea4ec1b.mp4
